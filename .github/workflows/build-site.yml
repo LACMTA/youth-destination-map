@@ -1,0 +1,31 @@
+# This workflow is based on the Node.js CI Workflow
+
+name: Build site for Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+      with: 
+        ref: ${{ github.head_ref }}
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm install
+    - name: Build Site
+      run: npm run clean:build
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: '[Auto] clean and build site for prod'
