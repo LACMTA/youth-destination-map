@@ -23,6 +23,8 @@ jobs:
         cache: 'npm'
     - name: Install dependencies
       run: npm install
+    - name: Define ENV variables
+      run: export AIRTABLE_API_KEY=${{ secrets.AIRTABLE_API_KEY }} && export GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}
     - name: Run data script
       run: npm run data
     - name: Commit and push changes
