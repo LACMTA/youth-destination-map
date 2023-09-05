@@ -1,0 +1,31 @@
+# This workflow is based on the Node.js CI Workflow
+
+name: Refresh Data
+
+on:
+  # schedule:
+  #   - cron: "*/5 * * * *"
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+      with: 
+        ref: ${{ github.head_ref }}
+    - name: Use Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm install
+    - name: Run data script
+      run: npm run data
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: '[Auto] refresh data'
