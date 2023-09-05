@@ -1,0 +1,26 @@
+{
+  "name": "11ty-template-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "npx rimraf docs",
+    "build": "npx @11ty/eleventy",
+    "serve": "npx @11ty/eleventy --serve",
+    "data": "node fetchData.js",
+    "start": "npm run data && npm run clean && npm run build && npm run serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  },
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.3.37",
+    "airtable": "^0.12.2",
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1"
+  }
+}
