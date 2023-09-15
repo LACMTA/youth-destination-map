@@ -1,6 +1,6 @@
 const mapDiv = document.querySelector('#map-container');
 const map = L.map(mapDiv).setView([34.0622, -118.2437], 10);
-const path = './data/places.json';
+// const path = './data/places.json';
 
 const center = { lat: 34.0622, lng: -118.2437 };
 const defaultBounds = {
@@ -60,7 +60,7 @@ function saveToAirtable() {
     if (place == null) {
         document.getElementById('destination').value = '';
     } else if (!place.geometry) {
-        document.getElementById('autocomplete').placeholder = 'Where do you go?';
+        document.getElementById('autocomplete').placeholder = 'Where do you want to go?';
     } else {
         console.log(place.name);
         console.log(place.place_id);
