@@ -24,7 +24,6 @@ base(tableName).select({
 }).eachPage(function page(records, fetchNextPage) {
 	records.forEach(function(record) {
 		let place = record.get('Place');
-		// console.log('place: ' + place);
 		let recordID = record.id;
 
 		let placeRecord = {};

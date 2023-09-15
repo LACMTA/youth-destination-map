@@ -8,9 +8,8 @@
     "clean": "npx rimraf docs",
     "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve",
-    "data": "node fetchData.js",
     "clean:build": "npm run clean && npm run build",
-    "start": "npm run data && npm run clean && npm run build && npm run serve"
+    "start": "npm run clean && npm run build && npm run serve"
   },
   "keywords": [],
   "author": "",

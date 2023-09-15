@@ -9,7 +9,15 @@ js-footer:
   - 'js/site-footer.js'
 ---
 
-<div id="map"></div>
-<div id="list">
-  <div></div>
+<div id="wrapper">
+
+  <div id="map-container"></div>
+
+  <div id="form-container">
+    <form id="form">
+      <input type="text" name="destination" id="destination" placeholder="Where do you go?" /><br>
+      <button type="submit" id="form-submit">Submit</button>
+    </form>
+    <div id="confirmation"></div>
+  </div>
 </div>

@@ -30,11 +30,21 @@
 
   <body>
     
-<div id="map"></div>
-<div id="list">
-  <div></div>
+<div id="wrapper">
+
+  <div id="map-container"></div>
+
+  <div id="form-container">
+    <form id="form">
+      <input type="text" name="destination" id="destination" placeholder="Where do you go?" /><br>
+      <button type="submit" id="form-submit">Submit</button>
+    </form>
+    <div id="confirmation"></div>
+  </div>
 </div>
 
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR03AOuNe_Z8YVJNACySoAp623SncQA3Y&libraries=places&callback=initMap"></script>
 
     
       <script src="js/site-footer.js"></script>
