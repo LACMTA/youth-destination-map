@@ -59,7 +59,9 @@ function saveToAirtable() {
     let place = autocomplete.getPlace();
     if (place == null) {
         document.getElementById('destination').value = '';
+        document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
     } else if (!place.geometry) {
+        document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
         document.getElementById('autocomplete').placeholder = 'Where do you want to go?';
     } else {
         console.log(place.name);
