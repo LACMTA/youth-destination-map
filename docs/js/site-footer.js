@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //     key: esriApiKey
     // }).addTo(map);
 
+   
+
     /* This is a Carto-styled OSM basemap*/
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
         attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -40,6 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         maxZoom: 19,
         minZoom: 0
     }).addTo(map);
+
+    const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
+
+
+    // L.tileLayer.wms('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Metro_Rail_and_Busway4/MapServer/WMSServer?service=wms&version=1.1.1&request=GetCapabilities', {
+    //     format: 'image/png32'
+    // }).addTo(map);
 
     // L.esri.Vector.vectorTileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
     // ).addTo(map);
