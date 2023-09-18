@@ -20,12 +20,44 @@ let autocomplete;
 let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
+    const esriApiKey = "AAPKc66f8690d8d2454d963dd7c12cdab9e8c5dqRerctjfPU5vLx9roiusqv3FdffU1X3eU934Ynqc8mUXiFrY_Ku9efOhg7j6X";
+    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Raster_tile_Map/MapServer/WMTS/1.0.0/WMTSCapabilities.xml?cacheKey=82b4049fd59cbc4c";
+    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Raster_tile_Map/MapServer/tile/{z}/{y}/{x}/";
+    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer/tile/{z}/{y}/{x}/";
+    const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Metro_Rail_and_Busway4/MapServer/tile/{z}/{y}/{x}/";
+    const layerId = "9d01674c0b51ead8";
+    const basemapId = "86c4a0ff98f5440d";
+
+    // L.esri.tiledMapLayer({
+    //     url: "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer/",
+    //     key: esriApiKey
+    // }).addTo(map);
+
+    /* This is a Carto-styled OSM basemap*/
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
         attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19,
         minZoom: 0
     }).addTo(map);
+
+    // L.esri.Vector.vectorTileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
+    // ).addTo(map);
+
+    // L.esri.Vector.vectorBasemapLayer("86c4a0ff98f5440d", {
+    //     apiKey: esriApiKey
+    // }).addTo(map);
+
+    // L.esri.Vector.vectorTileLayer(
+    //     "9d01674c0b51ead8"
+    // ).addTo(map);
+
+    /* This works to pull in an ArcGIS basemap */
+    // L.esri.Vector.vectorBasemapLayer("ArcGIS:DarkGray", {
+    //     apiKey: esriApiKey
+    // }).addTo(map);
+
+    // L.esri.Vector.vectorTileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer').addTo(map);
 
     readFromAirtable();
 })
@@ -56,24 +88,25 @@ function handleSubmit(event) {
 
 
 function saveToAirtable() {
-    let place = autocomplete.getPlace();
-    if (place == null) {
+    let google_place = autocomplete.getPlace();
+    if (google_place == null) {
         document.getElementById('destination').value = '';
         document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
-    } else if (!place.geometry) {
+    } else if (!google_place.geometry) {
         document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
         document.getElementById('autocomplete').placeholder = 'Where do you want to go?';
     } else {
-        console.log(place.name);
-        console.log(place.place_id);
-        console.log(place.geometry.location.lat() + ', ' + place.geometry.location.lng());
+        console.log(google_place.name);
+        console.log(google_place.place_id);
+        console.log(google_place.geometry.location.lat() + ', ' + google_place.geometry.location.lng());
 
         let lambda_airtable_url = 'https://6tylo7vfvkr4aj7mk2h6ihom3a0mcttz.lambda-url.us-west-1.on.aws/?';
         
-        lambda_airtable_url += 'place=' + place.name;
-        lambda_airtable_url += '&place_id=' + place.place_id;
-        lambda_airtable_url += '&lat=' + place.geometry.location.lat();
-        lambda_airtable_url += '&lon=' + place.geometry.location.lng();
+        lambda_airtable_url += 'google_place=' + google_place.name;
+        lambda_airtable_url += '&google_place_id=' + google_place.place_id;
+        lambda_airtable_url += '&lat=' + google_place.geometry.location.lat();
+        lambda_airtable_url += '&lon=' + google_place.geometry.location.lng();
+        lambda_airtable_url += '&user_entered_place=' + document.getElementById('destination').value;
 
         postInsertData(lambda_airtable_url).then((data) => {
             console.log(data);
@@ -98,7 +131,7 @@ function readFromAirtable() {
         console.log(data);
         data.forEach(destination => {
             let marker = L.marker([destination.lat, destination.lon]);
-            marker.bindPopup(destination.place);
+            marker.bindPopup(destination.user_entered_place);
             marker.addTo(markers);
         });
         map.addLayer(markers);
@@ -117,3 +150,19 @@ function resetMarkers() {
     markers.clearLayers();
     readFromAirtable();
 }
+
+document.getElementById('destination').addEventListener('touchstart', (e) => {
+    console.log('touched!');
+    let docHeight = document.body.scrollHeight;
+    let viewHeight = window.innerHeight;
+    console.log('docHeight: ' + docHeight);
+    console.log('viewHeight: ' + viewHeight);
+
+    if (docHeight <= viewHeight ) {
+        document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
+        window.scrollTo(0, 400);
+    } else {
+        window.scrollTo(0, 400);
+        document.getElementById('destination').focus();
+    }
+});
