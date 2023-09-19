@@ -2,6 +2,8 @@ const mapDiv = document.querySelector('#map-container');
 const map = L.map(mapDiv).setView([34.0622, -118.2437], 10);
 // const path = './data/places.json';
 
+const docHeight = document.body.scrollHeight;
+
 const center = { lat: 34.0622, lng: -118.2437 };
 const defaultBounds = {
   north: center.lat + 0.7,
@@ -36,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function initMap() {
     console.log('Gmaps call returned');
     autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener('place_changed', onPlaceChanged);
 }
 
 document.getElementById('form').addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
-    window.scrollTo(0, 0);
     document.getElementById('confirmation').innerText = '';
     saveToAirtable();
     document.getElementById('destination').value = '';
@@ -49,6 +51,10 @@ function handleSubmit(event) {
     event.preventDefault();
 }
 
+function onPlaceChanged(e) {
+    console.log('place changed');
+    document.querySelector('body').style.minHeight = docHeight + 'px';
+}
 
 function saveToAirtable() {
     let google_place = autocomplete.getPlace();
@@ -120,7 +126,6 @@ function resetMarkers() {
 
 document.getElementById('destination').addEventListener('touchstart', (e) => {
     console.log('touched!');
-    let docHeight = document.body.scrollHeight;
     let viewHeight = window.innerHeight;
     console.log('docHeight: ' + docHeight);
     console.log('viewHeight: ' + viewHeight);
