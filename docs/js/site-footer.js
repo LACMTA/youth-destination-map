@@ -126,7 +126,7 @@ function resetMarkers() {
 
 document.getElementById('destination').addEventListener('touchstart', (e) => {
     console.log('touched!');
-    e.preventDefault();
+    // e.preventDefault();
 
     let viewHeight = window.innerHeight;
     console.log('docHeight: ' + docHeight);
@@ -135,16 +135,16 @@ document.getElementById('destination').addEventListener('touchstart', (e) => {
     if (docHeight <= viewHeight ) {
         document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
         window.scrollTo(0, 400);
-        document.getElementById('destination').focus();
-        document.getElementById('destination').select();
+        // document.getElementById('destination').focus();
+        // document.getElementById('destination').select();
     } else {
         window.scrollTo(0, 400);
         document.getElementById('destination').focus();
-        document.getElementById('destination').select();
+        // document.getElementById('destination').select();
     }
 });
 
-document.getElementById('destination').addEventListener('focusout', (e) => {
-    console.log('focus out');
-    document.querySelector('body').style.minHeight = docHeight + 'px';
-});
+// document.getElementById('destination').addEventListener('focusout', (e) => {
+//     console.log('focus out');
+//     document.querySelector('body').style.minHeight = docHeight + 'px';
+// });
