@@ -138,3 +138,8 @@ document.getElementById('destination').addEventListener('touchstart', (e) => {
         document.getElementById('destination').focus();
     }
 });
+
+document.getElementById('destination').addEventListener('focusout', (e) => {
+    console.log('focus out');
+    document.querySelector('body').style.minHeight = docHeight + 'px';
+});
