@@ -126,6 +126,8 @@ function resetMarkers() {
 
 document.getElementById('destination').addEventListener('touchstart', (e) => {
     console.log('touched!');
+    e.preventDefault();
+
     let viewHeight = window.innerHeight;
     console.log('docHeight: ' + docHeight);
     console.log('viewHeight: ' + viewHeight);
@@ -133,9 +135,12 @@ document.getElementById('destination').addEventListener('touchstart', (e) => {
     if (docHeight <= viewHeight ) {
         document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
         window.scrollTo(0, 400);
+        document.getElementById('destination').focus();
+        document.getElementById('destination').select();
     } else {
         window.scrollTo(0, 400);
         document.getElementById('destination').focus();
+        document.getElementById('destination').select();
     }
 });
 
