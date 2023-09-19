@@ -41,6 +41,7 @@ function initMap() {
 document.getElementById('form').addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
+    window.scrollTo(0, 0);
     document.getElementById('confirmation').innerText = '';
     saveToAirtable();
     document.getElementById('destination').value = '';
