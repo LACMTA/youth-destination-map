@@ -20,21 +20,6 @@ let autocomplete;
 let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
-    const esriApiKey = "AAPKc66f8690d8d2454d963dd7c12cdab9e8c5dqRerctjfPU5vLx9roiusqv3FdffU1X3eU934Ynqc8mUXiFrY_Ku9efOhg7j6X";
-    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Raster_tile_Map/MapServer/WMTS/1.0.0/WMTSCapabilities.xml?cacheKey=82b4049fd59cbc4c";
-    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Raster_tile_Map/MapServer/tile/{z}/{y}/{x}/";
-    // const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer/tile/{z}/{y}/{x}/";
-    const esriUrl = "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Metro_Rail_and_Busway4/MapServer/tile/{z}/{y}/{x}/";
-    const layerId = "9d01674c0b51ead8";
-    const basemapId = "86c4a0ff98f5440d";
-
-    // L.esri.tiledMapLayer({
-    //     url: "https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer/",
-    //     key: esriApiKey
-    // }).addTo(map);
-
-   
-
     /* This is a Carto-styled OSM basemap*/
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
         attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -45,45 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
 
-
-    // L.tileLayer.wms('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Metro_Rail_and_Busway4/MapServer/WMSServer?service=wms&version=1.1.1&request=GetCapabilities', {
-    //     format: 'image/png32'
-    // }).addTo(map);
-
-    // L.esri.Vector.vectorTileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
-    // ).addTo(map);
-
-    // L.esri.Vector.vectorBasemapLayer("86c4a0ff98f5440d", {
-    //     apiKey: esriApiKey
-    // }).addTo(map);
-
-    // L.esri.Vector.vectorTileLayer(
-    //     "9d01674c0b51ead8"
-    // ).addTo(map);
-
-    /* This works to pull in an ArcGIS basemap */
-    // L.esri.Vector.vectorBasemapLayer("ArcGIS:DarkGray", {
-    //     apiKey: esriApiKey
-    // }).addTo(map);
-
-    // L.esri.Vector.vectorTileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Hybrid_Vector_tile_Map/VectorTileServer').addTo(map);
-
     readFromAirtable();
 })
-
-// fetch(path)
-// .then((response) => response.json())
-// .then((json) => {
-//     json.forEach(place => {
-//         let marker = L.marker([place.location.lat, place.location.lng]).addTo(map);
-//         marker.bindPopup(place.name);
-//     });
-// }); 
 
 function initMap() {
     console.log('Gmaps call returned');
     autocomplete = new google.maps.places.Autocomplete(input, options);
-    // autocomplete.addListener('place_changed', onPlaceChanged);
 }
 
 document.getElementById('form').addEventListener('submit', handleSubmit);

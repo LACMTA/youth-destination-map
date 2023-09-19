@@ -1,3 +1,6 @@
+/* Not needed with the AWS Lambda function implementation */
+/* Keeping around for reference */
+
 console.log('...fetching data...');
 
 require('dotenv').config();
