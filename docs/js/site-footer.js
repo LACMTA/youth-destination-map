@@ -89,6 +89,7 @@ function initMap() {
 document.getElementById('form').addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
+    document.getElementById('confirmation').innerText = '';
     saveToAirtable();
     document.getElementById('destination').value = '';
     autocomplete.set('place', null);
@@ -109,13 +110,15 @@ function saveToAirtable() {
         console.log(google_place.place_id);
         console.log(google_place.geometry.location.lat() + ', ' + google_place.geometry.location.lng());
 
+        let shortenedPlaceName = document.getElementById('destination').value.split(',')[0];
+
         let lambda_airtable_url = 'https://6tylo7vfvkr4aj7mk2h6ihom3a0mcttz.lambda-url.us-west-1.on.aws/?';
         
         lambda_airtable_url += 'google_place=' + google_place.name;
         lambda_airtable_url += '&google_place_id=' + google_place.place_id;
         lambda_airtable_url += '&lat=' + google_place.geometry.location.lat();
         lambda_airtable_url += '&lon=' + google_place.geometry.location.lng();
-        lambda_airtable_url += '&user_entered_place=' + document.getElementById('destination').value;
+        lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
 
         postInsertData(lambda_airtable_url).then((data) => {
             console.log(data);
@@ -140,7 +143,9 @@ function readFromAirtable() {
         console.log(data);
         data.forEach(destination => {
             let marker = L.marker([destination.lat, destination.lon]);
-            marker.bindPopup(destination.user_entered_place);
+            let markerContent = '<p>' + destination.user_entered_place + '<br><br>' + 'Count: ' + destination.count + '</p>';
+
+            marker.bindPopup(markerContent);
             marker.addTo(markers);
         });
         map.addLayer(markers);

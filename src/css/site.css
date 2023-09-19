@@ -74,9 +74,9 @@ button:active {
 
 .pac-item {
     padding: 10px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 16px;
+    color: #ececec;
+    font-weight: normal;
+    font-size: 12px;
 }
 
 .pac-item:hover, .pac-item-selected {
@@ -95,9 +95,11 @@ button:active {
 }
 
 .pac-item-query {
-    color: #e5e5e5;
-    font-weight: bold;
+    color: #fff;
+    /* font-weight: bold; */
+    font-weight: normal;
     font-size: 16px;
+    margin-right: 10px;
 }
 
 .pac-container {
