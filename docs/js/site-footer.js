@@ -124,7 +124,7 @@ function resetMarkers() {
     readFromAirtable();
 }
 
-document.getElementById('destination').addEventListener('touchstart', (e) => {
+document.getElementById('destination').addEventListener('click', (e) => {
     console.log('touched!');
     // e.preventDefault();
 
