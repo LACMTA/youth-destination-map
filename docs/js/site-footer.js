@@ -22,6 +22,30 @@ let autocomplete;
 let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
+    let form = document.getElementById('form')
+    if (form !== null) {
+        form.addEventListener('submit', handleSubmit);
+    }
+
+    // let destination = document.getElementById('destination');
+    // if (destination !== null) {
+    //     destination.addEventListener('click', handleFormTouch);
+    //     destination.addEventListener('focusout', handleFormOutsideClick);
+    // }
+
+    document.body.addEventListener('click', function(e) {
+        if (e.target.closest('#destination')) {
+            console.log('destination - clicked');
+            document.getElementById('map-container').style.flexGrow = "1";
+            document.getElementById('form-container').style.flexGrow = "4";
+        } else {
+            console.log('NOT destination - clicked');
+            document.getElementById('map-container').style.flexGrow = "4";
+            document.getElementById('form-container').style.flexGrow = "1";
+        }
+
+    });
+
     /* This is a Carto-styled OSM basemap*/
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
         attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -35,13 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
     readFromAirtable();
 })
 
+// Callback function for Google Map API
+// as defined in src/_includes/default.liquid
 function initMap() {
     console.log('Gmaps call returned');
-    autocomplete = new google.maps.places.Autocomplete(input, options);
-    autocomplete.addListener('place_changed', onPlaceChanged);
+    if (input !== null) {
+        autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.addListener('place_changed', onPlaceChanged);
+    }
 }
-
-document.getElementById('form').addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
     document.getElementById('confirmation').innerText = '';
@@ -124,27 +150,32 @@ function resetMarkers() {
     readFromAirtable();
 }
 
-document.getElementById('destination').addEventListener('click', (e) => {
+function handleFormTouch(e) {
     console.log('touched!');
+
+    document.getElementById('map-container').style.flexGrow = "1";
+    document.getElementById('form-container').style.flexGrow = "4";
+
     // e.preventDefault();
 
-    let viewHeight = window.innerHeight;
-    console.log('docHeight: ' + docHeight);
-    console.log('viewHeight: ' + viewHeight);
+    // let viewHeight = window.innerHeight;
+    // console.log('docHeight: ' + docHeight);
+    // console.log('viewHeight: ' + viewHeight);
 
-    if (docHeight <= viewHeight ) {
-        document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
-        window.scrollTo(0, 400);
-        // document.getElementById('destination').focus();
-        // document.getElementById('destination').select();
-    } else {
-        window.scrollTo(0, 400);
-        document.getElementById('destination').focus();
-        // document.getElementById('destination').select();
-    }
-});
+    // if (docHeight <= viewHeight ) {
+    //     document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
+    //     window.scrollTo(0, 400);
+    //     // document.getElementById('destination').focus();
+    //     // document.getElementById('destination').select();
+    // } else {
+    //     window.scrollTo(0, 400);
+    //     document.getElementById('destination').focus();
+    //     // document.getElementById('destination').select();
+    // }
+}
 
-// document.getElementById('destination').addEventListener('focusout', (e) => {
-//     console.log('focus out');
-//     document.querySelector('body').style.minHeight = docHeight + 'px';
-// });
+function handleFormOutsideClick(e) {
+    console.log('clicked outside form');
+    e.stopPropagation();
+    // document.querySelector('body').style.minHeight = docHeight + 'px';
+}
