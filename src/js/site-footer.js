@@ -35,11 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.body.addEventListener('click', function(e) {
         if (e.target.closest('#destination')) {
-            console.log('destination - clicked');
             document.getElementById('map-container').style.flexGrow = "1";
             document.getElementById('form-container').style.flexGrow = "4";
         } else {
-            console.log('NOT destination - clicked');
             document.getElementById('map-container').style.flexGrow = "4";
             document.getElementById('form-container').style.flexGrow = "1";
         }
@@ -65,30 +63,30 @@ function initMap() {
     console.log('Gmaps call returned');
     if (input !== null) {
         autocomplete = new google.maps.places.Autocomplete(input, options);
-        autocomplete.addListener('place_changed', onPlaceChanged);
+        // autocomplete.addListener('place_changed', onPlaceChanged);
     }
 }
 
-function handleSubmit(event) {
-    document.getElementById('confirmation').innerText = '';
+function handleSubmit(event) {    
     saveToAirtable();
+    document.getElementById('confirmation').innerText = '';
     document.getElementById('destination').value = '';
     autocomplete.set('place', null);
     event.preventDefault();
 }
 
-function onPlaceChanged(e) {
-    console.log('place changed');
-    document.querySelector('body').style.minHeight = docHeight + 'px';
-}
+// function onPlaceChanged(e) {
+//     console.log('place changed');
+//     document.querySelector('body').style.minHeight = docHeight + 'px';
+// }
 
 function saveToAirtable() {
     let google_place = autocomplete.getPlace();
     if (google_place == null) {
         document.getElementById('destination').value = '';
-        document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
+        document.getElementById('confirmation').innerText = 'Please select from the dropdown';
     } else if (!google_place.geometry) {
-        document.getElementById('confirmation').innerText = 'Please select from the dropdown!';
+        document.getElementById('confirmation').innerText = 'Please select from the dropdown';
         document.getElementById('autocomplete').placeholder = 'Where do you want to go?';
     } else {
         console.log(google_place.name);
@@ -104,9 +102,11 @@ function saveToAirtable() {
         lambda_airtable_url += '&lat=' + google_place.geometry.location.lat();
         lambda_airtable_url += '&lon=' + google_place.geometry.location.lng();
         lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
+        
+        console.log('Lambda write call: ' + lambda_airtable_url);
 
         postInsertData(lambda_airtable_url).then((data) => {
-            console.log(data);
+            console.log('write call return: ' + data);
             document.getElementById('confirmation').innerText = data + ' found via Google and added!';
             resetMarkers();
         });
@@ -123,6 +123,8 @@ async function postInsertData(url = "") {
 
 function readFromAirtable() {
     let lambda_airtable_url = 'https://ycvplis7qloqh5g6qjmwgvmusq0twgct.lambda-url.us-west-1.on.aws/';
+
+    console.log('Lambda read call: ' + lambda_airtable_url);
 
     getRecords(lambda_airtable_url).then((data) => {
         console.log(data);
@@ -150,32 +152,32 @@ function resetMarkers() {
     readFromAirtable();
 }
 
-function handleFormTouch(e) {
-    console.log('touched!');
+// function handleFormTouch(e) {
+//     console.log('touched!');
 
-    document.getElementById('map-container').style.flexGrow = "1";
-    document.getElementById('form-container').style.flexGrow = "4";
+//     document.getElementById('map-container').style.flexGrow = "1";
+//     document.getElementById('form-container').style.flexGrow = "4";
 
-    // e.preventDefault();
+//     // e.preventDefault();
 
-    // let viewHeight = window.innerHeight;
-    // console.log('docHeight: ' + docHeight);
-    // console.log('viewHeight: ' + viewHeight);
+//     // let viewHeight = window.innerHeight;
+//     // console.log('docHeight: ' + docHeight);
+//     // console.log('viewHeight: ' + viewHeight);
 
-    // if (docHeight <= viewHeight ) {
-    //     document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
-    //     window.scrollTo(0, 400);
-    //     // document.getElementById('destination').focus();
-    //     // document.getElementById('destination').select();
-    // } else {
-    //     window.scrollTo(0, 400);
-    //     document.getElementById('destination').focus();
-    //     // document.getElementById('destination').select();
-    // }
-}
+//     // if (docHeight <= viewHeight ) {
+//     //     document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
+//     //     window.scrollTo(0, 400);
+//     //     // document.getElementById('destination').focus();
+//     //     // document.getElementById('destination').select();
+//     // } else {
+//     //     window.scrollTo(0, 400);
+//     //     document.getElementById('destination').focus();
+//     //     // document.getElementById('destination').select();
+//     // }
+// }
 
-function handleFormOutsideClick(e) {
-    console.log('clicked outside form');
-    e.stopPropagation();
-    // document.querySelector('body').style.minHeight = docHeight + 'px';
-}
+// function handleFormOutsideClick(e) {
+//     console.log('clicked outside form');
+//     e.stopPropagation();
+//     // document.querySelector('body').style.minHeight = docHeight + 'px';
+// }
