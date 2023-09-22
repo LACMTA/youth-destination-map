@@ -1,6 +1,5 @@
 const mapDiv = document.querySelector('#map-container');
 const map = L.map(mapDiv).setView([34.0622, -118.2437], 10);
-// const path = './data/places.json';
 
 const docHeight = document.body.scrollHeight;
 
@@ -26,12 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form !== null) {
         form.addEventListener('submit', handleSubmit);
     }
-
-    // let destination = document.getElementById('destination');
-    // if (destination !== null) {
-    //     destination.addEventListener('click', handleFormTouch);
-    //     destination.addEventListener('focusout', handleFormOutsideClick);
-    // }
 
     document.body.addEventListener('click', function(e) {
         if (e.target.closest('#destination')) {
@@ -63,7 +56,6 @@ function initMap() {
     console.log('Gmaps call returned');
     if (input !== null) {
         autocomplete = new google.maps.places.Autocomplete(input, options);
-        // autocomplete.addListener('place_changed', onPlaceChanged);
     }
 }
 
@@ -74,11 +66,6 @@ function handleSubmit(event) {
     autocomplete.set('place', null);
     event.preventDefault();
 }
-
-// function onPlaceChanged(e) {
-//     console.log('place changed');
-//     document.querySelector('body').style.minHeight = docHeight + 'px';
-// }
 
 function saveToAirtable() {
     let google_place = autocomplete.getPlace();
@@ -151,33 +138,3 @@ function resetMarkers() {
     markers.clearLayers();
     readFromAirtable();
 }
-
-// function handleFormTouch(e) {
-//     console.log('touched!');
-
-//     document.getElementById('map-container').style.flexGrow = "1";
-//     document.getElementById('form-container').style.flexGrow = "4";
-
-//     // e.preventDefault();
-
-//     // let viewHeight = window.innerHeight;
-//     // console.log('docHeight: ' + docHeight);
-//     // console.log('viewHeight: ' + viewHeight);
-
-//     // if (docHeight <= viewHeight ) {
-//     //     document.querySelector('body').style.minHeight = docHeight + 500 + 'px';
-//     //     window.scrollTo(0, 400);
-//     //     // document.getElementById('destination').focus();
-//     //     // document.getElementById('destination').select();
-//     // } else {
-//     //     window.scrollTo(0, 400);
-//     //     document.getElementById('destination').focus();
-//     //     // document.getElementById('destination').select();
-//     // }
-// }
-
-// function handleFormOutsideClick(e) {
-//     console.log('clicked outside form');
-//     e.stopPropagation();
-//     // document.querySelector('body').style.minHeight = docHeight + 'px';
-// }
