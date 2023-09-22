@@ -108,3 +108,72 @@ button:active {
     border-radius: 10px;
     background-color: #14eeca;
 }
+
+#saving {
+    margin: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #d217d2;
+    display: none;
+}
+
+.dot-one, .dot-two, .dot-three {
+    font-size: 2em;
+}
+
+span[class^="dot-"]{
+    opacity: 0;
+  }
+  .dot-one{
+    animation: dot-one 2s infinite linear
+  }
+  .dot-two{
+    animation: dot-two 2s infinite linear
+  }
+  .dot-three{
+    animation: dot-three 2s infinite linear
+  }
+  @keyframes dot-one{
+    0%{
+      opacity: 0;
+    }
+    15%{
+      opacity: 0;
+    }
+    25%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  
+  @keyframes dot-two{
+    0%{
+      opacity: 0;
+    }
+    25%{
+      opacity: 0;
+    }
+    50%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 1;
+    }
+  }
+  
+  @keyframes dot-three{
+    0%{
+      opacity: 0;
+    }
+    50%{
+      opacity: 0;
+    }
+    75%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 1;
+    }
+  }

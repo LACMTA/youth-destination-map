@@ -59,9 +59,10 @@ function initMap() {
     }
 }
 
-function handleSubmit(event) {    
-    saveToAirtable();
+function handleSubmit(event) {
     document.getElementById('confirmation').innerText = '';
+    document.getElementById('saving').style.display = 'block';
+    saveToAirtable();
     document.getElementById('destination').value = '';
     autocomplete.set('place', null);
     event.preventDefault();
@@ -94,6 +95,7 @@ function saveToAirtable() {
 
         postInsertData(lambda_airtable_url).then((data) => {
             console.log('write call return: ' + data);
+            document.getElementById('saving').style.display = 'none';
             document.getElementById('confirmation').innerText = data + ' found via Google and added!';
             resetMarkers();
         });
