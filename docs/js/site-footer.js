@@ -22,6 +22,7 @@ let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
     let url = window.location.href;
+    let refreshInteral = 15000; // 15 seconds
 
     console.log(url);
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         map.setZoom(11);
     } else {
         console.log('NOT on map page');
+        refreshInteral = 30000;
     }
 
     let form = document.getElementById('form')
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
 
-    window.setInterval(readFromAirtable, 10000);
+    window.setInterval(readFromAirtable, refreshInteral);
     // readFromAirtable();
 })
 
