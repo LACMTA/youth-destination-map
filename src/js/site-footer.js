@@ -21,21 +21,31 @@ let autocomplete;
 let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
+    let url = window.location.href;
+
+    console.log(url);
+
+    if (url.includes('/map/')) {
+        console.log('on map page setting zoom to 11');
+        map.setZoom(11);
+    } else {
+        console.log('NOT on map page');
+    }
+
     let form = document.getElementById('form')
     if (form !== null) {
         form.addEventListener('submit', handleSubmit);
+
+        document.body.addEventListener('click', function(e) {
+            if (e.target.closest('#destination')) {
+                document.getElementById('map-container').style.flexGrow = "1";
+                document.getElementById('form-container').style.flexGrow = "4";
+            } else {
+                document.getElementById('map-container').style.flexGrow = "4";
+                document.getElementById('form-container').style.flexGrow = "1";
+            }
+        });
     }
-
-    document.body.addEventListener('click', function(e) {
-        if (e.target.closest('#destination')) {
-            document.getElementById('map-container').style.flexGrow = "1";
-            document.getElementById('form-container').style.flexGrow = "4";
-        } else {
-            document.getElementById('map-container').style.flexGrow = "4";
-            document.getElementById('form-container').style.flexGrow = "1";
-        }
-
-    });
 
     /* This is a Carto-styled OSM basemap*/
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
@@ -47,7 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
 
-    readFromAirtable();
+    window.setInterval(readFromAirtable, 10000);
+    // readFromAirtable();
 })
 
 // Callback function for Google Map API
@@ -117,6 +128,9 @@ function readFromAirtable() {
 
     getRecords(lambda_airtable_url).then((data) => {
         console.log(data);
+
+        resetMarkers();
+
         data.forEach(destination => {
             let marker = L.marker([destination.lat, destination.lon]);
             let markerContent = '<p>' + destination.user_entered_place + '<br><br>' + 'Count: ' + destination.count + '</p>';
