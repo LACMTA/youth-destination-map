@@ -34,8 +34,8 @@ form {
     flex-direction: column;
 }
 
-input {
-    margin: 30px 20px 5px 20px;
+input, textarea {
+    margin: 20px 20px 5px 20px;
     padding: 15px;
     border: 0;
     border-radius: 10px;
@@ -44,11 +44,15 @@ input {
     font-weight: bold;
     font-size: 16px;
     outline: solid 5px #0eba9d;
+    font-family: sans-serif;
 }
 
-input::placeholder {
+input::placeholder, textarea::placeholder {
     color: #fff;
     opacity: 1;
+    font-family: sans-serif;
+    font-weight: 400;
+
 }
 
 input:focus {

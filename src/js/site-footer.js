@@ -103,6 +103,8 @@ function saveToAirtable() {
         lambda_airtable_url += '&lat=' + google_place.geometry.location.lat();
         lambda_airtable_url += '&lon=' + google_place.geometry.location.lng();
         lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
+        lambda_airtable_url += '&first_name=' + document.getElementById('first-name').value;
+        lambda_airtable_url += '&description=' + document.getElementById('description').value;
         
         console.log('Lambda write call: ' + lambda_airtable_url);
 
