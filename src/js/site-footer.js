@@ -77,6 +77,8 @@ function handleSubmit(event) {
     document.getElementById('saving').style.display = 'block';
     saveToAirtable();
     document.getElementById('destination').value = '';
+    document.getElementById('first-name').value = '';
+    document.getElementById('description').value = '';
     autocomplete.set('place', null);
     event.preventDefault();
 }
