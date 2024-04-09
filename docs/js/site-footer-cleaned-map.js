@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
         complete: (results) => {
             console.log('Papa parsed CSV: ' + results.data.length + ' rows');
             createMarkers(results.data);
+            let showOnlyData = results.data.filter(row => row.show === true);
+
+            createMarkers(showOnlyData);
         }
     });
 
