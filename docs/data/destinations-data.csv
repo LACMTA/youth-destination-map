@@ -3,7 +3,7 @@ FALSE,,Santa Catalina Island,ChIJJYvheyNv3YARqw71xdWjWT4,Catalina Island,13,33.3
 TRUE,,Universal Studios Hollywood,ChIJzzgyJU--woARcZqceSdQ3dM,Universal Studios Hollywood,7,34.1381168,-118.3533783,reckOrduLF1yxn4UP,9/23/2023 11:12 AM,9/25/2023 9:26 PM,Amusement Park,,,
 FALSE,Too general,Santa Monica,ChIJGQCRws6kwoARq_Uj_7UKF7Q,Santa Monica,5,34.0194543,-118.4911912,reccxn46gUEpZzBTs,9/23/2023 10:22 AM,9/25/2023 9:26 PM,City/Neighborhood,,,
 TRUE,,The Shops at Santa Anita,ChIJ4YnG77zbwoARFQvP5LH-EVg,The Shops at Santa Anita,4,34.1343827,-118.0515692,recPH9nthosqwL3lE,9/18/2023 2:13 PM,9/25/2023 9:26 PM,Museum,,,
-TRUE,,Knott's Berry Farm,ChIJo3h_9V8p3YARVTAekE45jq4,Knott's Berry Farm,4,33.8443038,-118.0002265,recVBTFtAHfL4G1pZ,9/23/2023 11:14 AM,9/25/2023 9:26 PM,Amusement Park,,,
+FALSE,not in LA County and I don't think Metro goes there,Knott's Berry Farm,ChIJo3h_9V8p3YARVTAekE45jq4,Knott's Berry Farm,4,33.8443038,-118.0002265,recVBTFtAHfL4G1pZ,9/23/2023 11:14 AM,9/25/2023 9:26 PM,Amusement Park,,,
 FALSE,Too general,North Hollywood,ChIJ0TEA7NOVwoARtPDh3nGzOC0,North Hollywood,3,34.1794165,-118.3790527,recJAINgabsV5uo9V,9/23/2023 10:22 AM,9/25/2023 9:27 PM,City/Neighborhood,,,
 FALSE,Not in LA County,Irvine,ChIJ40CRaA7d3IAROZpKYHW1eqc,Irvine,3,33.6845673,-117.8265049,recQCrmuVCyICcezw,9/23/2023 11:12 AM,9/25/2023 9:27 PM,City/Neighborhood,,,
 FALSE,Too general,Long Beach,ChIJWdeZQOjKwoARqo8qxPo6AKE,Long Beach,3,33.7700504,-118.1937395,recWnB0r0ME4SXk1R,9/23/2023 11:13 AM,9/25/2023 9:27 PM,City/Neighborhood,,,
@@ -237,7 +237,7 @@ FALSE,Needs a more specific location along Whittier Blvd,Whittier Boulevard,EiBX
 TRUE,,Fairplex,ChIJC1nifkQuw4ARB_0DE1uMiPA,Fairplex,1,34.0809481,-117.7665555,rec3wHYi41iElDSrg,2/20/2024 7:34 PM,2/20/2024 7:34 PM,,,,
 TRUE,,The Getty Villa,ChIJBw1wGumjwoARsKRsr2WJ-eQ,J. Paul Getty Museum,1,34.0458857,-118.5648608,recUIJBkdiguqbZC8,2/20/2024 7:34 PM,2/20/2024 7:34 PM,,,,
 TRUE,,Green Store,ChIJow9dp4SzwoARMEAi97tMorE,Green Store,1,33.8691844,-118.403621,rec4loiGR6kFl45tT,2/20/2024 7:35 PM,2/20/2024 7:35 PM,,,,
-TRUE,,Boiling Point,ChIJvUcukdwn3YARk3Zo_ma82iE,Boiling Point,1,33.7613889,-117.9533333,reczWYDYkK9uSOSsD,2/20/2024 7:35 PM,2/20/2024 7:35 PM,,,,
+FALSE,"this location is not in LA, update to one that is",Boiling Point,ChIJvUcukdwn3YARk3Zo_ma82iE,Boiling Point,1,33.7613889,-117.9533333,reczWYDYkK9uSOSsD,2/20/2024 7:35 PM,2/20/2024 7:35 PM,,,Megan Teresa,*wait idk if this is the LA location* Anyway they have DELICIOUS hot pot but its your own pot instead of sharing it with others (haha). Its also affordable and you can shop around Pasadena in the meantime :).
 TRUE,,Goodwill Southern California Outlet Store,ChIJh064HinBwoAR3XKXW8Lopp0,Goodwill Southern California Outlet Store,1,34.11511,-118.2485607,recirc2FepIfjJFrV,2/20/2024 7:35 PM,2/20/2024 7:35 PM,,,,
 FALSE,K-12 School,Bonita High School,ChIJSUxP9bMvw4AR2nEDLLec46A,Bonita High School,1,34.1077894,-117.7660346,recKsaRkgRrN2DXho,2/20/2024 7:36 PM,2/20/2024 7:36 PM,,,Bryce,School
 TRUE,,Boccato's Groceries,ChIJHdvhN5CzwoAR2wzkgzxh6Gg,Boccato's Groceries,1,33.8756135,-118.4062326,recaJAAOpzkyToMb0,2/20/2024 7:36 PM,2/20/2024 7:36 PM,,,,
@@ -261,7 +261,7 @@ FALSE,Airport,Los Angeles International Airport,ChIJtU-yE9KwwoAR8a2LaVd7qHc,LAX 
 TRUE,,Hidden Treasures,ChIJ0faiD-ihwoARSsN-227igYg,Hidden Treasures,1,34.0891056,-118.6029528,rec3fQm45D4huy3GY,3/4/2024 6:21 PM,3/4/2024 6:21 PM,,,,
 TRUE,,Jeni's Splendid Ice Creams,ChIJgbl_IrDAwoARjm3IDmuUfDQ,Jeni's Ice Creams,1,34.1069782,-118.287284,recVJTksfBfDHwnfl,3/4/2024 6:22 PM,3/4/2024 6:22 PM,,,,
 TRUE,,Barnes,ChIJlzj68z3X3IARueYoyYVl-OE,Barnes,1,34.072096,-118.3582928,recctJ6QFgM5k87D0,3/4/2024 6:23 PM,3/4/2024 6:23 PM,,,,
-TRUE,,Huntington Gardens,ChIJe9W_Jb8l3YAR63drQllWmjU,Huntington Gardens,1,33.7234191,-118.0429763,recyJFiKwiK7SgZYN,3/4/2024 6:25 PM,3/4/2024 6:25 PM,,,,
+FALSE,not in LA County - maybe Huntington Library and Gardens?,Huntington Gardens,ChIJe9W_Jb8l3YAR63drQllWmjU,Huntington Gardens,1,33.7234191,-118.0429763,recyJFiKwiK7SgZYN,3/4/2024 6:25 PM,3/4/2024 6:25 PM,,,Allegra,beautiful arrangement of gardens with plants from different places around the world
 TRUE,,Gloria Molina Grand Park,ChIJ_STuCE7GwoAR3vCqfD2J9es,Grand Park,1,34.0563289,-118.2467713,recNedExtqx7zniV4,3/4/2024 10:26 PM,3/4/2024 10:26 PM,,,,
 TRUE,,Placita Olvera,ChIJp8Kl0onHwoAR7Y4PrIpIEUY,Placita Olvera,1,34.0576075,-118.2379223,recg0DA3CPBpmQCPR,3/4/2024 10:28 PM,3/4/2024 10:28 PM,,,,
 TRUE,,Bon Shabu,ChIJK_UM1IK4woARErtZmu-_10k,Bon Shabu,1,34.061458,-118.299784,recDHesiID2L3809U,3/5/2024 8:14 AM,3/5/2024 8:14 AM,,,,
@@ -279,7 +279,7 @@ TRUE,,Exposition Park,ChIJOe8VwQnIwoARB-EGOd2XBfY,Exposition Park,1,34.0149382,-
 TRUE,,Buena Vista Branch Library,ChIJY1y029u_woAR-bcYlIXsM2U,Buena Vista Branch Library,1,34.164125,-118.3304556,recxWHZ67Up24h5VD,3/6/2024 6:04 PM,3/6/2024 6:04 PM,,,,
 TRUE,,Fern Dell Nature Trail,ChIJa_vDely_woAR7bHQTLLrWrI,Fern Dell Nature Trail,1,34.1093847,-118.3076918,recJapdqCvosg6Eef,3/6/2024 7:24 PM,3/6/2024 7:24 PM,,,,
 TRUE,,Thailicious,ChIJWTwqUKkt3YARv3vBZsfnisc,Thailicious,1,33.8595894,-118.0721556,recMrj5indkYw8FGq,3/6/2024 9:46 PM,3/6/2024 9:46 PM,,,,
-TRUE,,Thanh Tam Bakery,ChIJ3ZX2C-4n3YARqkJM7LannbY,Thanh Tam Bakery,1,33.7583333,-117.9380556,recroS3Lbyt9imVJW,3/6/2024 9:47 PM,3/6/2024 9:47 PM,,,,
+FALSE,not in LA County,Thanh Tam Bakery,ChIJ3ZX2C-4n3YARqkJM7LannbY,Thanh Tam Bakery,1,33.7583333,-117.9380556,recroS3Lbyt9imVJW,3/6/2024 9:47 PM,3/6/2024 9:47 PM,,,Ella,Thanh Tam has been my family's go-to banh mi (Vietnamese sandwich) place for years. The sandwiches are cheap and delicious!!
 FALSE,Too general,Century City,ChIJq9_06PK7woARessS9HTLWnQ,Century City,1,34.0536608,-118.4133894,rech2bUposryxTTrB,3/7/2024 11:25 AM,3/7/2024 11:25 AM,,,Juju,"I volunteer somewhere near there, and i also like the mall!"
 TRUE,,Westwood Village,ChIJcYwTcIG8woARuraTYAMDvHk,Westwood Village,1,34.0617664,-118.4447863,reclZnH3vk2KA4NhW,3/8/2024 12:49 PM,3/8/2024 12:49 PM,,,,
 TRUE,,Redondo Beach Pier,ChIJowa2Fae0woAR4Foh-gQHF-g,Redondo Beach Pier,1,33.8391453,-118.3909768,rectjDPU02K0UI6li,3/8/2024 12:49 PM,3/8/2024 12:49 PM,,,,
@@ -324,7 +324,7 @@ TRUE,,Autry Museum of the American West,ChIJ0Vsle2bAwoARTRWdvRY8hXU,Autry Museum
 FALSE,Not a place that targets teens,The Los Angeles Museum of Love,ChIJRyaKoUXHwoARh9-j8fqY7eU,The Los Angeles Museum of Love,1,34.083383,-118.2948692,recxuH0kaAscxcBa0,3/13/2024 3:52 PM,3/13/2024 3:52 PM,,,Tatiana,Art
 TRUE,,Peter Morton Medical Building - UCLA Medical Center,ChIJ0xmP9Ue9woAR1qn4kSWnsTg,UCLA Medical Center,1,34.0648474,-118.4471591,rec6UJkSx2HNTQZEV,3/13/2024 3:53 PM,3/13/2024 3:53 PM,,,,
 TRUE,,Trader Joe's,ChIJqdUPZsnAwoARK02SOqchG8Q,Trader Joe's,1,34.1077921,-118.2717774,recciegxbRPnV160q,3/13/2024 3:54 PM,3/13/2024 3:54 PM,,,,
-TRUE,,Yogurtland The Market Place,ChIJGzypYoDb3IARYsaSkdh7XfY,Yogurtland The Market Place,1,33.727438,-117.786456,recRPoJRFlO3GzkPx,3/13/2024 3:55 PM,3/13/2024 3:55 PM,,,,
+FALSE,not in LA County,Yogurtland The Market Place,ChIJGzypYoDb3IARYsaSkdh7XfY,Yogurtland The Market Place,1,33.727438,-117.786456,recRPoJRFlO3GzkPx,3/13/2024 3:55 PM,3/13/2024 3:55 PM,,,Ruby,I live yogurtland
 TRUE,,Nieves Xochi Oax,ChIJV1pCgq_HwoARlMatQIOJXQ8,Nieves Xochi Oax,1,34.0474564,-118.2861114,recwHEuPgQ8ZnhVD2,3/13/2024 4:45 PM,3/13/2024 4:45 PM,,,,
 TRUE,,Guelaguetza Restaurant,ChIJKSPWlH-4woARrKJ5thvMBeY,Guelaguetza Restaurant,1,34.0524074,-118.3006681,recX11mMbWJ8sgH1X,3/13/2024 4:46 PM,3/13/2024 4:46 PM,,,,
 TRUE,,Los Angeles County Museum of Art,ChIJsXqcyjy5woARNz6sOh0ZmwA,LACMA,1,34.0639323,-118.3592293,recwIvV4ptGBwZlfB,3/13/2024 6:08 PM,3/13/2024 6:08 PM,,,,

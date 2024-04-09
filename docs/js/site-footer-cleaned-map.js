@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // window.setInterval(readFromAirtable, refreshInteral);
 
     // Call Papa Parse to read a CSV file at '/data/destinations-04-04-2024.csv' on the server:
-    Papa.parse('/youth-destination-map/data/destinations-04-04-2024.csv', {
+    Papa.parse(destinationsDataFile, {
         download: true,
         header: true,
         dynamicTyping: true,
