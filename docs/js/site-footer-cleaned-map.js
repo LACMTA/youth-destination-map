@@ -1,3 +1,6 @@
+const destinationsDataFile = '/youth-destination-map/data/destinations-data.csv';
+const recommendationsDataFile = '/youth-destination-map/data/recommendations-data.csv';
+
 const mapDiv = document.querySelector('#map-container');
 const map = L.map(mapDiv).setView([34.0622, -118.2437], 10);
 
