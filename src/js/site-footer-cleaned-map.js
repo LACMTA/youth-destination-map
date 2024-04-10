@@ -23,6 +23,22 @@ const options = {
 let autocomplete;
 let markers = L.layerGroup();
 
+// Create a function to parse a CSV file
+function parseCSV(file) {
+    return new Promise((resolve, reject) => {
+        Papa.parse(file, {
+            download: true,
+            header: true,
+            complete: function(results) {
+                resolve(results.data);
+            },
+            error: function(err) {
+                reject(err);
+            }
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     let url = window.location.href;
     let refreshInteral = 15000; // 15 seconds
@@ -80,17 +96,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }).addTo(map);
 
     // Load cleaned destination data
-    Papa.parse(destinationsDataFile, {
-        download: true,
-        header: true,
-        dynamicTyping: true,
-        complete: (results) => {
-            console.log('Papa parsed CSV: ' + results.data.length + ' rows');
-            let showOnlyData = results.data.filter(row => row.show === true);
+    // Papa.parse(destinationsDataFile, {
+    //     download: true,
+    //     header: true,
+    //     dynamicTyping: true,
+    //     complete: (results) => {
+    //         console.log('Papa parsed CSV: ' + results.data.length + ' rows');
+    //         showDestinationData(results.data);
+    //     }
+    // });
 
-            createMarkers(showOnlyData);
-        }
-    });
+    // Use Promise.all to parse all CSV files
+    Promise.all([parseCSV(destinationsDataFile), parseCSV(recommendationsDataFile)])
+    .then(results => {
+        // results[0] contains data from destinationsDataFile
+        // results[1] contains data from recommendationsDataFile
+        console.log('Parsed ' + results[0].length + ' destinations and ' + results[1].length + ' recommendations');
+
+        // Now you can call your createMarkers function
+        // Filter destinations for non-null coordinates and show = true
+        
+        let filteredDestinations = results[0].filter(function(row) {
+            return row.lat != null && row.lon != null && row.show === "TRUE";
+        });
+        console.log('Filtered ' + filteredDestinations.length + ' destinations');
+        createMarkers(filteredDestinations, results[1]);
+    })
+    .catch(err => console.error(err));
 
 })
 
@@ -180,16 +212,24 @@ function readFromAirtable() {
     });
 }
 
-function createMarkers(data) {
-    data.forEach(destination => {
-        console.log(destination.lat + ', ' + destination.lon);
-        if (destination.lat != null && destination.lon != null && !destination.outside_la) {
-            let marker = L.marker([destination.lat, destination.lon]);
-            let markerContent = '<p>' + destination.user_entered_place + '</p>';
+function createMarkers(destinations, recommendations) {
+    destinations.forEach(destination => {
+        let marker = L.marker([destination.lat, destination.lon]);
+        let markerContent = '<p>' + destination.user_entered_place + '</p>';
 
-            marker.bindPopup(markerContent);
-            marker.addTo(markers);
+        let matchingRecommendations = recommendations.filter(recommendation => recommendation.google_place_id === destination.google_place_id);
+        console.log('Matching recommendations: ' + matchingRecommendations.length);
+
+        if (matchingRecommendations.length > 0) {
+            markerContent += '<ul>';
+            matchingRecommendations.forEach(recommendation => {
+                markerContent += `<li>"${recommendation.description}" -${recommendation.first_name}</li>`;
+            });
+            markerContent += '</ul>';
         }
+
+        marker.bindPopup(markerContent);
+        marker.addTo(markers);
     });
     map.addLayer(markers);
 }
