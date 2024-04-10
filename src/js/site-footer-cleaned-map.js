@@ -64,7 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // window.setInterval(readFromAirtable, refreshInteral);
 
-    // Call Papa Parse to read a CSV file at '/data/destinations-04-04-2024.csv' on the server:
+    // Load Metro data layers
+    let geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#0ae8f4",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    }
+    L.geoJSON(railStations, {
+        pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(map);
+
+    // Load cleaned destination data
     Papa.parse(destinationsDataFile, {
         download: true,
         header: true,
