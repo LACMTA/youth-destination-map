@@ -91,7 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     L.geoJSON(railStations, {
         pointToLayer: function(feature, latlng) {
-            return L.circleMarker(latlng, geojsonMarkerOptions);
+            let marker = L.circleMarker(latlng, geojsonMarkerOptions);
+            let markerContent = '<p>' + feature.properties.STOP_NAME + '</p>';
+    
+            marker.bindPopup(markerContent);
+            return marker;
         }
     }).addTo(map);
 
