@@ -1,0 +1,22 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel='stylesheet' />
+  <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+  
+  <script src="https://unpkg.com/mapbox-gl-esri-sources@0.0.7/dist/mapbox-gl-esri-sources.js"></script>
+
+
+  {% for file in css %}
+    <link rel="stylesheet" href="{{ file | url }}">
+  {% endfor %}
+
+
+  {% for file in js-head %}
+    <script src="{{ file | url }}"></script>
+  {% endfor %}
+
+  <title>{{ title }}</title>
+</head>
