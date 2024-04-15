@@ -1,5 +1,7 @@
 const mapDiv = document.querySelector('#map-container');
-const map = L.map(mapDiv).setView([34.0622, -118.2437], 10);
+let map;
+
+map = mapDiv ? L.map(mapDiv).setView([34.0622, -118.2437], 10) : null;
 
 const docHeight = document.body.scrollHeight;
 
@@ -21,46 +23,53 @@ let autocomplete;
 let markers = L.layerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
-    let url = window.location.href;
-    let refreshInteral = 15000; // 15 seconds
+    if (map) {
+        let url = window.location.href;
+        let refreshInteral = 15000; // 15 seconds
+    
+        console.log(url);
+    
+        if (url.includes('/map/')) {
+            console.log('on map page setting zoom to 11');
+            map.setZoom(11);
+        } else {
+            console.log('NOT on map page');
+            refreshInteral = 30000;
+        }
 
-    console.log(url);
+        /* This is a Carto-styled OSM basemap*/
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
+            attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+            minZoom: 0
+        }).addTo(map);
 
-    if (url.includes('/map/')) {
-        console.log('on map page setting zoom to 11');
-        map.setZoom(11);
-    } else {
-        console.log('NOT on map page');
-        refreshInteral = 30000;
+        const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
+
+        window.setInterval(readFromAirtable, refreshInteral);
+        // readFromAirtable();
     }
+    
 
     let form = document.getElementById('form')
-    if (form !== null) {
+    if (form) {
         form.addEventListener('submit', handleSubmit);
 
-        document.body.addEventListener('click', function(e) {
-            if (e.target.closest('#destination')) {
-                document.getElementById('map-container').style.flexGrow = "1";
-                document.getElementById('form-container').style.flexGrow = "4";
-            } else {
-                document.getElementById('map-container').style.flexGrow = "4";
-                document.getElementById('form-container').style.flexGrow = "1";
-            }
-        });
+        if (map) {
+            document.body.addEventListener('click', function(e) {
+                if (e.target.closest('#destination')) {
+                    document.getElementById('map-container').style.flexGrow = "1";
+                    document.getElementById('form-container').style.flexGrow = "4";
+                } else {
+                    document.getElementById('map-container').style.flexGrow = "4";
+                    document.getElementById('form-container').style.flexGrow = "1";
+                }
+            });
+        }
     }
 
-    /* This is a Carto-styled OSM basemap*/
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}' + (L.Browser.retina ? '@2x.png' : '.png'), {
-        attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-        minZoom: 0
-    }).addTo(map);
-
-    const wmsLayer = L.tileLayer('https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC4/MapServer/WMTS/tile/1.0.0/Map_RGB_Vector_Offset_RC4/default/default028mm/{z}/{y}/{x}.png').addTo(map);
-
-    window.setInterval(readFromAirtable, refreshInteral);
-    // readFromAirtable();
+    
 })
 
 // Callback function for Google Map API

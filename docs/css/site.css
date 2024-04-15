@@ -20,6 +20,7 @@ html, body {
 
 #form-container {
     flex-grow: 1;
+    padding: 20px;
 }
 
 #confirmation {
@@ -79,9 +80,9 @@ button:active {
 
 .pac-item {
     padding: 10px;
-    color: #ececec;
+    color: #f6f6f6;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .pac-item:hover, .pac-item-selected {
