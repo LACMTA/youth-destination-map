@@ -53,7 +53,7 @@ html, body {
 
 .maplibregl-popup-content>div {
     max-height: 200px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .maplibregl-marker {
