@@ -1,0 +1,55 @@
+html, body, #map {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#header {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 100;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #ffffffcc;
+}
+
+.maplibregl-popup-content {
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px 3px rgba(0,0,0,.5);
+    padding: 20px;
+}
+
+.maplibregl-popup-content .popupDestination {
+    font-size: 16px;
+}
+
+.maplibregl-popup-content div {
+    font-size: 14px;
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.maplibregl-marker {
+    cursor: pointer;
+}
+
+.markerIcon {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: solid 1px #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px 3px rgba(0,0,0,.5);
+}
