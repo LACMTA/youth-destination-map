@@ -1,5 +1,3 @@
-const isProduction = process.env.NODE_ENV === "production";
-
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/css");
 	eleventyConfig.addPassthroughCopy("src/js");
@@ -15,7 +13,7 @@ module.exports = function(eleventyConfig) {
 
 	console.log("Environment: " + env);
 
-	if (env == "production") {
+	if (env == "prod") {
 		pathPrefixValue = "";
 	} else {
 		pathPrefixValue = "/youth-destination-map/";
