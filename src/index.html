@@ -1,31 +1,15 @@
 ---
-layout: default
+layout: default-map
 title: "Youth Destination Map"
 css: 
-  - './css/site.css'
-js-head: 
-  - './js/papaparse.min.js'
+  - '/css/map.css'
 js-footer:
-  - './js/site-footer.js'
+  - '/js/map.js'
 ---
 
-<div id="wrapper">
-
-  <!--<div id="map-container"></div>-->
-
-  <div id="form-container">
-    <h1>Youth Destination Map - Submission Form</h1>
-    <form id="form">
-      <input type="text" name="destination" id="destination" placeholder="What place would you recommend to a friend?" required /><br>
-      <input type="text" name="first-name" id="first-name" placeholder="First Name" required /><br>
-      <textarea name="description" id="description" placeholder="Why would they like going there?" required maxlength="300"></textarea><br>
-      <button type="submit" id="form-submit">Submit</button>
-    </form>
-    <div id="confirmation"></div>
-    <div id="saving">saving 
-      <span class="dot-one"> .</span>
-      <span class="dot-two"> .</span>
-      <span class="dot-three"> .</span>
-    </div>
-  </div>
+<div id="header">
+  Metro Youth Destination Guide<br>
+  <span class="form-link"><a href="{{ '/form/' | url }}">Add a place!</a></span>
 </div>
+
+<div id="map"></div>
