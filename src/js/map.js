@@ -1,4 +1,4 @@
-const ESRI_KEY =  "AAPKccc2cf38fecc47649e91529acf524abflSSkRTjWwH0AYmZi8jaRo-wdpcTf6z67CLCkOjVYlw3pZyUIF_Y4KGBndq35Y02z";
+const ESRI_KEY =  "AAPTxy8BH1VEsoebNVZXo8HurCIBEXS58hLwaInNH7mnZeFDQtLv6ne8Ndu9F_uhRYlcgNlUzxSJ_3aIRhlZ66ITzLy3TN5caX3Hy_d4OuX-_TgcTi4qxk0AgsLvM8fyZ8bhzUwQk6V_ZLbS3q4bR1RnQV1KOJgHzPtISbiVgOzCQfa27tEurkpQRQCDmSlDxaq1hkcD60THn0eKEMUIPvv0VGV1PEA2-5YA7Ua-iJX5yV4.AT1_YiClAvyL";
 const basemapEnum = "65aff2873118478482ec3dec199e9058";
 
 const basemapStyle = `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/items/${basemapEnum}?token=${ESRI_KEY}`;
