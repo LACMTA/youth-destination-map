@@ -10,10 +10,23 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/CNAME");
 	eleventyConfig.addPassthroughCopy("src/favicon.ico");
 
+	let env = process.env.NODE_ENV;
+	let pathPrefixValue = "";
+
+	console.log("Environment: " + env);
+
+	if (env == "production") {
+		pathPrefixValue = "";
+	} else {
+		pathPrefixValue = "/youth-destination-map/";
+	}
+
+	console.log("Path Prefix: " + pathPrefixValue);
+
 	return {
 		// Use this pathPrefix if using a custom domain so that 
 		// Production builds generate links using the root:
-		pathPrefix: isProduction ? "" : "/youth-destination-map/",
+		pathPrefix: pathPrefixValue,
 		dir: {
 			input: "src",
 			output: "docs"
