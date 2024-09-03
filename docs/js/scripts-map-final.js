@@ -8,7 +8,9 @@ const readFromAirtableUrl = 'https://ycvplis7qloqh5g6qjmwgvmusq0twgct.lambda-url
 const getDestUrl = 'https://5rqyajkoanm2z7nfkf7fcdxxt40fdxzi.lambda-url.us-west-1.on.aws/';
 const getRecsUrl = 'https://6h4liuthvnsgu7morkntsf55ai0jnfra.lambda-url.us-west-1.on.aws/';
 
+const geojsonDataUrl = 'https://gxu5ffy7xp2gmvdv45yeucj4le0cilzk.lambda-url.us-west-1.on.aws/';
 
+const filterGroup = document.getElementById('filter-group');
 
 async function getData(url) {
     try {
@@ -45,12 +47,57 @@ map.on('load', () => {
         source: 'imagery-source'
     })
 
-    Promise.all([getData(getDestUrl), getData(getRecsUrl)])
+    Promise.all([getData(getDestUrl), getData(getRecsUrl), getData(geojsonDataUrl)])
     .then(results => {
         let destinations = results[0];
         let recommendations = results[1];
+        let geojsonData = results[2].data;
 
-        createMarkersSeparate(destinations, recommendations);
+        // createMarkersSeparate(destinations, recommendations);
+
+        map.addSource('destinations', { 
+            type: 'geojson', 
+            data: geojsonData
+        });
+
+        geojsonData.features.forEach(feature => {
+            let category = feature.properties['category_name'].replace(/ /g, '-').toLowerCase();
+            let iconPath = feature.properties['category_icon_file'];
+            let layerID = `poi-${category}`;
+
+            if (!map.getLayer(layerID)) {
+                map.addLayer({
+                    id: layerID,
+                    type: 'symbol',
+                    source: 'destinations',
+                    filter: ['==', 'category_name', category],
+                    layout: {
+                        'icon-image': iconPath,
+                        'icon-overlap': 'always'
+                    }
+                });
+
+                new maplibregl.Marker()
+                    .setLngLat(feature.geometry.coordinates)
+                    .addTo(map);
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.id = layerID;
+                input.checked = true;
+                filterGroup.appendChild(input);
+
+                const label = document.createElement('label');
+                label.setAttribute('for', layerID);
+                label.textContent = feature.properties['category_name'];
+                filterGroup.appendChild(label);
+
+                input.addEventListener('change', function(e) {
+                    map.setLayoutProperty(layerID, 'visibility', e.target.checked ? 'visible' : 'none');
+                });
+            }
+
+        });
 
         console.log('Destinations: ' + destinations.length + ' Recommendations: ' + recommendations.length);
     })
