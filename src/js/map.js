@@ -39,12 +39,10 @@ metroLayer.addTo(map);
 
 function onMapLoad() {
     Promise.all([getData(geojsonDataUrl)])
-    // Promise.all([getData(getDestUrl), getData(getRecsUrl)])
     .then(results => {
         let geojsonData = results[0].data;
 
         createLeafletLayers(geojsonData);
-        console.log('Destinations: ' + destinations.length + ' Recommendations: ' + recommendations.length);
     })
     .catch(err => console.error(err));
 }
@@ -65,10 +63,7 @@ function createLeafletLayers(data) {
                 layerGroups[feature.properties['category_name']].addLayer(createLeafletMarker(feature));
             }
         }
-
-        console.log(feature);
     });
-    console.log(layerGroups);
     let layerControl = L.control.layers(null, layerGroups).addTo(map);
 }
 
