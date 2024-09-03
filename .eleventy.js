@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === "prod";
+const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addPassthroughCopy("src/css");
@@ -14,7 +14,6 @@ module.exports = function(eleventyConfig) {
 		// Use this pathPrefix if using a custom domain so that 
 		// Production builds generate links using the root:
 		pathPrefix: isProduction ? "" : "/youth-destination-map/",
-		//pathPrefix: "/youth-destination-map/",
 		dir: {
 			input: "src",
 			output: "docs"
