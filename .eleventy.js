@@ -7,13 +7,14 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/data");
 
 	// Uncomment if using a custom domain with GitHub Pages
-	// eleventyConfig.addPassthroughCopy("CNAME");
+	eleventyConfig.addPassthroughCopy("src/CNAME");
+	eleventyConfig.addPassthroughCopy("src/favicon.ico");
 
 	return {
 		// Use this pathPrefix if using a custom domain so that 
 		// Production builds generate links using the root:
-		// pathPrefix: isProduction ? "" : "/{repository-name}/",
-		pathPrefix: "/youth-destination-map/",
+		pathPrefix: isProduction ? "" : "/youth-destination-map/",
+		//pathPrefix: "/youth-destination-map/",
 		dir: {
 			input: "src",
 			output: "docs"
