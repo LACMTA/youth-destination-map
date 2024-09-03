@@ -157,6 +157,8 @@ function onMapLoad() {
 // });
 
 
+let categoryIcons = {};
+
 function createLeafletLayers(data) {
     let layerGroups = {};
     data.features.forEach(feature => {
@@ -179,7 +181,44 @@ function createLeafletLayers(data) {
 }
 
 function createLeafletMarker(feature) {
-    return L.marker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]]).bindPopup(feature.properties['google_place']);
+    if (categoryIcons[feature.properties['category_name']] == null) {
+        categoryIcons[feature.properties['category_name']] = L.icon({
+            iconUrl: `../img/${feature.properties['category_icon_file']}`,
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+    }
+    return L.marker(
+        [feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 
+        {icon: categoryIcons[feature.properties['category_name']]})
+    .bindPopup(createLeafletPopup(feature));
+}
+
+function createLeafletPopup(feature) {
+    let popupContent = document.createElement('div');
+
+    let title = document.createElement('span');
+    title.className = 'popupDestination';
+    title.innerHTML = `${feature.properties['google_place']}<br>`;
+
+    let link = document.createElement('a');
+    link.href = 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id=' + feature.properties['google_place_id'];
+    link.target = '_blank';
+    link.innerHTML = '(Get directions on Google Maps)';
+    
+    let recommendationList = document.createElement('div');
+
+    feature.properties['recommendations'].forEach(recommendation => {
+        let rec = document.createElement('p');
+        rec.innerHTML = `"${recommendation.description}"<br><strong>- <em>${recommendation.first_name}</em></strong>`;
+        recommendationList.appendChild(rec);
+    });
+
+    popupContent.appendChild(title);
+    popupContent.appendChild(link);
+    popupContent.appendChild(recommendationList);
+
+    return popupContent;
 }
 
 function createMarkersSeparate(destinations, recommendations) {

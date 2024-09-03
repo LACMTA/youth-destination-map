@@ -24,6 +24,10 @@ html, body, #map {
     padding: 20px;
 }
 
+.popupDestination {
+    font-weight: bold;
+}
+
 .maplibregl-popup-content .popupDestination {
     font-size: 16px;
 }
