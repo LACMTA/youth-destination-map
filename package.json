@@ -9,7 +9,7 @@
     "build": "npx @11ty/eleventy",
     "serve": "npx @11ty/eleventy --serve",
     "clean:build": "npm run clean  && npm run build",
-    "prod:build": "NODE_ENV=production && npm run clean:build",
+    "prod:build": "NODE_ENV=production npm run clean:build",
     "start": "npm run clean:build && npm run serve" 
   },
   "keywords": [],
