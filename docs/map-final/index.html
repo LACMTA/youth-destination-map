@@ -5,14 +5,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/goe1fni.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
   <!-- MapLibre -->
   <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel='stylesheet' />
   <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
   
   <script src="https://unpkg.com/mapbox-gl-esri-sources@0.0.7/dist/mapbox-gl-esri-sources.js"></script>
-
-
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -41,11 +45,12 @@
   <body>
     
 <div id="header">
-  Youth Destination Guide
+  Metro Youth Destination Guide<br>
+  <span class="form-link"><a href="/youth-destination-map/form/">Add a place!</a></span>
 </div>
 
 <div id="map"></div>
-<nav id="filter-group" class="filter-group"></nav>
+
 
     
   <script src="/youth-destination-map/js/scripts-map-final.js"></script>

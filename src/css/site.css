@@ -3,8 +3,7 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
-    
+    font-family: 'open-sans', sans-serif;    
 }
 
 #wrapper {
@@ -40,11 +39,11 @@ input, textarea {
     padding: 15px;
     border: 0;
     border-radius: 10px;
-    background-color: #14eeca;
+    background-color: #097B68;
     color: #fff;
     font-weight: bold;
     font-size: 16px;
-    outline: solid 5px #0eba9d;
+    outline: solid 5px #033A32;
     font-family: sans-serif;
 }
 
@@ -57,7 +56,7 @@ input::placeholder, textarea::placeholder {
 }
 
 input:focus {
-    outline: solid 5px #0eba9d;
+    outline: solid 5px #033A32;
 }
 
 button {
@@ -86,7 +85,7 @@ button:active {
 }
 
 .pac-item:hover, .pac-item-selected {
-    background-color: #0eba9d;
+    background-color: #033A32;
     color: #fff;
 }
 
@@ -109,9 +108,9 @@ button:active {
 }
 
 .pac-container {
-    border: solid 5px #0eba9d;
+    border: solid 5px #033A32;
     border-radius: 10px;
-    background-color: #14eeca;
+    background-color: #097B68;
 }
 
 #saving {

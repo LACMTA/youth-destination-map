@@ -6,12 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://use.typekit.net/goe1fni.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -32,10 +26,12 @@
 
 
   
-    <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="css/site.css">
   
 
 
+  
+    <script src="js/papaparse.min.js"></script>
   
 
   <title>Youth Destination Map</title>
@@ -44,14 +40,31 @@
   <body>
     
 <div id="wrapper">
-  <div id="map-container"></div>
+
+  <!--<div id="map-container"></div>-->
+
+  <div id="form-container">
+    <h1>Youth Destination Map - Submission Form</h1>
+    <form id="form">
+      <input type="text" name="destination" id="destination" placeholder="What place would you recommend to a friend?" required /><br>
+      <input type="text" name="first-name" id="first-name" placeholder="First Name" required /><br>
+      <textarea name="description" id="description" placeholder="Why would they like going there?" required maxlength="300"></textarea><br>
+      <button type="submit" id="form-submit">Submit</button>
+    </form>
+    <div id="confirmation"></div>
+    <div id="saving">saving 
+      <span class="dot-one"> .</span>
+      <span class="dot-two"> .</span>
+      <span class="dot-three"> .</span>
+    </div>
+  </div>
 </div>
 
     <script src="https://apis.google.com/js/api.js"></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR03AOuNe_Z8YVJNACySoAp623SncQA3Y&libraries=places&callback=initMap"></script>
 
 
-  <script src="../js/site-footer.js"></script>
+  <script src="js/site-footer.js"></script>
 
   </body>
 

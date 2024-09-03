@@ -32,10 +32,12 @@
 
 
   
-    <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="/youth-destination-map/css/form.css">
   
 
 
+  
+    <script src="/youth-destination-map/js/papaparse.min.js"></script>
   
 
   <title>Youth Destination Map</title>
@@ -44,14 +46,41 @@
   <body>
     
 <div id="wrapper">
-  <div id="map-container"></div>
+
+  <!--<div id="map-container"></div>-->
+
+  <div id="form-container">
+    <h1>Metro Youth Destination Guide</h1>
+    <form id="form">
+      <label for="first-name">What's your first name?</label><br>
+      <input type="text" name="first-name" id="first-name" required /><br>
+      
+      <label for="destination">What place would you recommend to a friend?</label><br>
+      <input type="text" name="destination" id="destination" placeholder="" required /><br>
+
+      <label for="description">Why would they like going there?</label><br>
+      <textarea name="description" id="description" required maxlength="300"></textarea><br>
+
+      <button type="submit" id="form-submit">Submit</button>
+    </form>
+    <div id="confirmation"></div>
+    <div id="saving">saving 
+      <span class="dot-one"> .</span>
+      <span class="dot-two"> .</span>
+      <span class="dot-three"> .</span>
+    </div>
+
+    <div>
+      <a href="/youth-destination-map/map-final/">View the map</a>
+    </div>
+  </div>
 </div>
 
     <script src="https://apis.google.com/js/api.js"></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR03AOuNe_Z8YVJNACySoAp623SncQA3Y&libraries=places&callback=initMap"></script>
 
 
-  <script src="../js/site-footer.js"></script>
+  <script src="/youth-destination-map/js/site-footer.js"></script>
 
   </body>
 
