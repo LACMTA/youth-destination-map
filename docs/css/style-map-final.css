@@ -43,6 +43,13 @@ html, body, #map {
     cursor: pointer;
 }
 
+.leaflet-marker-icon {
+    border-radius: 100%;
+    border: solid 1px #000;
+    background-color: white;
+    box-shadow: 3px 3px 5px 3px rgba(0,0,0,.5);
+}
+
 .markerIcon {
     width: 40px;
     height: 40px;
