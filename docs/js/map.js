@@ -68,16 +68,27 @@ function createLeafletLayers(data) {
 }
 
 function createLeafletMarker(feature) {
-    if (categoryIcons[feature.properties['category_name']] == null) {
-        categoryIcons[feature.properties['category_name']] = L.icon({
-            iconUrl: `./img/${feature.properties['category_icon_file']}`,
+    let icon_file = '';
+    let category = '';
+
+    if (feature.properties['category_icon_file'] == null || feature.properties['category_icon_file'] == '') {
+        icon_file = 'marker.svg';
+        category = 'none';
+    } else {
+        icon_file = feature.properties['category_icon_file'];
+        category = feature.properties['category_name'];
+    }
+
+    if (categoryIcons[category] == null) {
+        categoryIcons[category] = L.icon({
+            iconUrl: `./img/${icon_file}`,
             iconSize: [24, 24],
             iconAnchor: [12, 12]
         });
     }
     return L.marker(
         [feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 
-        {icon: categoryIcons[feature.properties['category_name']]})
+        {icon: categoryIcons[category]})
     .bindPopup(createLeafletPopup(feature));
 }
 
