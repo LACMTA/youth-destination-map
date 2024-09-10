@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: 'open-sans', sans-serif;
+    font-weight: bold;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -35,7 +36,7 @@ form {
     font-family: 'open-sans', sans-serif;
 }
 
-input, textarea {
+input, textarea, input:-internal-autofill-selected {
     /* margin: 20px 20px 5px 20px; */
     padding: 15px;
     border: 0;
@@ -53,6 +54,19 @@ input::placeholder, textarea::placeholder {
     opacity: 1;
     font-family: 'open-sans', sans-serif;
     font-weight: 400;
+}
+
+select {
+    /* margin: 20px 20px 5px 20px; */
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #097B68;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    outline: #fff 5px; /*solid 5px #033A32;*/
+    font-family: 'open-sans', sans-serif;
 }
 
 input:focus, textarea:focus {
