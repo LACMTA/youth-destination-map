@@ -4,6 +4,7 @@ const basemapEnum = "65aff2873118478482ec3dec199e9058";
 const basemapStyle = `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/items/${basemapEnum}?token=${ESRI_KEY}`;
 const mapImagery = 'https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/services/Map_RGB_Vector_Offset_RC5/MapServer';
 
+// AWS Lambda Function: youthDestinations-geojson
 const geojsonDataUrl = 'https://gxu5ffy7xp2gmvdv45yeucj4le0cilzk.lambda-url.us-west-1.on.aws/';
 
 async function getData(url) {
@@ -51,23 +52,35 @@ let categoryIcons = {};
 
 function createLeafletLayers(data) {
     let layerGroups = {};
+
     data.features.forEach(feature => {
         if (feature.properties['category_name'] != null || feature.properties['category_name'] != '') {
-            if (layerGroups[feature.properties['category_name']] == null) {
-                let marker = createLeafletMarker(feature);
+            let markerClassShow = 'marker-show';
+            let markerClassNew = 'marker-new';
+            let marker;
 
+            if (feature.properties['status'] == 'show') {
+                marker = createLeafletMarker(feature, markerClassShow);
+            } else if (feature.properties['status'] == 'new') {
+                marker = createLeafletMarker(feature, markerClassNew);
+            } else {
+                return;
+            }
+
+            if (layerGroups[feature.properties['category_name']] == null) {
                 let categoryLayer = L.layerGroup([marker]);
                 categoryLayer.addTo(map);
                 layerGroups[feature.properties['category_name']] = categoryLayer;
             } else {
-                layerGroups[feature.properties['category_name']].addLayer(createLeafletMarker(feature));
+                layerGroups[feature.properties['category_name']].addLayer(marker);
             }
         }
     });
+
     let layerControl = L.control.layers(null, layerGroups).addTo(map);
 }
 
-function createLeafletMarker(feature) {
+function createLeafletMarker(feature, markerClass) {
     let icon_file = '';
     let category = '';
 
@@ -79,17 +92,22 @@ function createLeafletMarker(feature) {
         category = feature.properties['category_name'];
     }
 
-    if (categoryIcons[category] == null) {
-        categoryIcons[category] = L.icon({
+
+    if (categoryIcons[category + '-' + markerClass] == null) {
+        categoryIcons[category + '-' + markerClass] = new L.icon({
             iconUrl: `./img/${icon_file}`,
             iconSize: [24, 24],
-            iconAnchor: [12, 12]
+            iconAnchor: [12, 12],
+            className: markerClass
         });
     }
-    return L.marker(
+
+    let marker = L.marker(
         [feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 
-        {icon: categoryIcons[category]})
+        {icon: categoryIcons[category + '-' + markerClass]})
     .bindPopup(createLeafletPopup(feature));
+
+    return marker;
 }
 
 function createLeafletPopup(feature) {
