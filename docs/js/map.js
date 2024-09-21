@@ -25,7 +25,7 @@ async function getData(url) {
 
 const map = L.map('map', {
     minZoom: 2
-}).on('load', onMapLoad).setView([34.00095151499077, -118.25133692966446], 10);;
+}).on('load', onMapLoad).setView([34.00095151499077, -118.25133692966446], 11);;
 
 L.esri.Vector.vectorBasemapLayer(basemapEnum, {
     apiKey: ESRI_KEY
@@ -39,13 +39,17 @@ let metroLayer = new L.esri.TiledMapLayer({
 metroLayer.addTo(map);
 
 function onMapLoad() {
-    Promise.all([getData(geojsonDataUrl)])
-    .then(results => {
-        let geojsonData = results[0].data;
-
-        createLeafletLayers(geojsonData);
-    })
-    .catch(err => console.error(err));
+    // auto-refresh every 10 seconds
+    // but first need to implement checking for existing markers so only new markers are added
+    // setInterval(() => {
+        Promise.all([getData(geojsonDataUrl)])
+        .then(results => {
+            let geojsonData = results[0].data;
+    
+            createLeafletLayers(geojsonData);
+        })
+        .catch(err => console.error(err));
+    // }, 10000);
 }
 
 let categoryIcons = {};
