@@ -41,6 +41,9 @@ let metroLayer = new L.esri.TiledMapLayer({
 
 metroLayer.addTo(map);
 
+map.attributionControl.addAttribution('<a href="credits/">Icons</a>');
+
+
 function onMapLoad() {
     // auto-refresh every 10 seconds
     // but first need to implement checking for existing markers so only new markers are added

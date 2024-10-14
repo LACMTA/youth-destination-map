@@ -5,6 +5,14 @@ css:
   - './css/site.css'
 ---
 
+# Icon Attribution
+
+Icons used on the Youth Destination Guide map are from <a href="https://thenounproject.com/" target="_blank">Noun Project</a>.
+
+<a href="/">Return to Map</a>
+
+## Icons
+
 "food and drink" icon by Rolas Design from <a href="https://thenounproject.com/browse/icons/term/food-and-drink/" target="_blank" title="Food and Drink Icons">Noun Project</a> (CC BY 3.0)
 
 "park" icon by LOKAL from <a href="https://thenounproject.com/browse/icons/term/park/" target="_blank" title="Park Icons">Noun Project</a> (CC BY 3.0)
