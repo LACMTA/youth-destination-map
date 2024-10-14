@@ -59,6 +59,10 @@ function handleSubmit(event) {
     }
 }
 
+function encodePlusSign(text) {
+    return text.replace('+', '%2B');
+}
+
 function saveToAirtable() {
     let google_place = autocomplete.getPlace();
     if (google_place == null) {
@@ -83,7 +87,7 @@ function saveToAirtable() {
         lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
         lambda_airtable_url += '&first_name=' + document.getElementById('first-name').value;
         lambda_airtable_url += '&description=' + document.getElementById('description').value;
-        lambda_airtable_url += '&category=' + document.getElementById('category').value;
+        lambda_airtable_url += '&category=' + encodePlusSign(document.getElementById('category').value);
         
         console.log('Lambda write call: ' + lambda_airtable_url);
 

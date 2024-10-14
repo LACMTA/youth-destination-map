@@ -7,6 +7,9 @@ const mapImagery = 'https://tiles.arcgis.com/tiles/TNoJFjk1LsD45Juj/arcgis/rest/
 // AWS Lambda Function: youthDestinations-geojson
 const geojsonDataUrl = 'https://gxu5ffy7xp2gmvdv45yeucj4le0cilzk.lambda-url.us-west-1.on.aws/';
 
+const vbmUrl = 'https://lacmta.github.io/lac-voting-locations/la-county-rrcc-vbm.json';
+const vcUrl = 'https://lacmta.github.io/lac-voting-locations/la-county-rrcc-vc.json';
+
 async function getData(url) {
     try {
         const response = await fetch(url);
@@ -25,7 +28,7 @@ async function getData(url) {
 
 const map = L.map('map', {
     minZoom: 2
-}).on('load', onMapLoad).setView([34.00095151499077, -118.25133692966446], 11);;
+}).on('load', onMapLoad).setView([34.00095151499077, -118.25133692966446], 11);
 
 L.esri.Vector.vectorBasemapLayer(basemapEnum, {
     apiKey: ESRI_KEY
@@ -42,17 +45,102 @@ function onMapLoad() {
     // auto-refresh every 10 seconds
     // but first need to implement checking for existing markers so only new markers are added
     // setInterval(() => {
-        Promise.all([getData(geojsonDataUrl)])
+        Promise.all([getData(geojsonDataUrl), getData(vbmUrl), getData(vcUrl)])
         .then(results => {
             let geojsonData = results[0].data;
+            let vbmData = results[1];
+            let vcData = results[2];
     
             createLeafletLayers(geojsonData);
+            addVotingLayers(vcData, vbmData);
         })
         .catch(err => console.error(err));
     // }, 10000);
 }
 
 let categoryIcons = {};
+
+function addVotingLayers(vcData, vbmData) {
+    let vcLayer = createVCLayer(vcData);
+    let vbmLayer = createVBMLayer(vbmData);
+
+    L.control.layers(null, {
+        'Voting Centers': vcLayer,
+        'Vote by Mail Drop Box': vbmLayer
+    }, {
+        collapsed: false
+    }).addTo(map);
+}
+
+function createVBMLayer(data) {
+    let icon = new L.icon({
+        iconUrl: './img/noun-polling-station-7187208.svg',
+        iconSize: [24,24],
+        iconAnchor: [12,12],
+        className: 'marker-show'
+    });
+
+    let vbmLayerGroup = L.layerGroup([]);
+
+    data.forEach(feature => {
+        let popup = document.createElement('div');
+        let title = document.createElement('span');
+        title.className = 'popupDestination';
+        title.innerHTML = feature.name;
+
+        let description = document.createElement('div');
+        description.innerHTML = `
+        Vote by Mail Drop Box<br>
+        Open: ${feature.hours}`;
+
+        popup.appendChild(title);
+        popup.appendChild(description);
+
+        marker = L.marker(
+            [feature.latitude, feature.longitude], 
+            {icon: icon})
+        .bindPopup(popup);
+
+        vbmLayerGroup.addLayer(marker);
+    });
+
+    return vbmLayerGroup;
+}
+
+function createVCLayer(data) {
+    let icon = new L.icon({
+        iconUrl: './img/noun-polling-station-7187208.svg',
+        iconSize: [24,24],
+        iconAnchor: [12,12],
+        className: 'marker-show'
+    });
+    
+    let vcLayerGroup = L.layerGroup([]);
+    
+    data.forEach(feature => {
+        let popup = document.createElement('div');
+        let title = document.createElement('span');
+        title.className = 'popupDestination';
+        title.innerHTML = feature.name;
+
+        let description = document.createElement('div');
+        description.innerHTML = `
+        Voting Center<br>
+        Open: ${feature.hours}`;
+
+        popup.appendChild(title);
+        popup.appendChild(description);
+
+        marker = L.marker(
+            [feature.latitude, feature.longitude], 
+            {icon: icon})
+        .bindPopup(popup);
+
+        vcLayerGroup.addLayer(marker);
+    });
+
+    return vcLayerGroup;
+}
 
 function createLeafletLayers(data) {
     let layerGroups = {};
