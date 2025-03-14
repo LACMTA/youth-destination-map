@@ -45,105 +45,110 @@ map.attributionControl.addAttribution('<a href="credits/">Icons</a>');
 
 
 function onMapLoad() {
-    // auto-refresh every 10 seconds
-    // but first need to implement checking for existing markers so only new markers are added
-    // setInterval(() => {
-        Promise.all([getData(geojsonDataUrl), getData(vbmUrl), getData(vcUrl)])
-        .then(results => {
-            let geojsonData = results[0].data;
-            let vbmData = results[1];
-            let vcData = results[2];
-    
-            createLeafletLayers(geojsonData);
-            addVotingLayers(vcData, vbmData);
-        })
-        .catch(err => console.error(err));
-    // }, 10000);
+    // With voting layers
+    // Promise.all([getData(geojsonDataUrl), getData(vbmUrl), getData(vcUrl)])
+    // .then(results => {
+    //     let geojsonData = results[0].data;
+    //     let vbmData = results[1];
+    //     let vcData = results[2];
+
+    //     createLeafletLayers(geojsonData);
+    //     addVotingLayers(vcData, vbmData);
+    // })
+    // .catch(err => console.error(err));
+
+    Promise.all([getData(geojsonDataUrl)])
+    .then(results => {
+        let geojsonData = results[0].data;
+
+        createLeafletLayers(geojsonData);
+    })
+    .catch(err => console.error(err));
 }
 
 let categoryIcons = {};
 
-function addVotingLayers(vcData, vbmData) {
-    let vcLayer = createVCLayer(vcData);
-    let vbmLayer = createVBMLayer(vbmData);
+// function addVotingLayers(vcData, vbmData) {
+//     let vcLayer = createVCLayer(vcData);
+//     let vbmLayer = createVBMLayer(vbmData);
 
-    L.control.layers(null, {
-        'Voting Centers': vcLayer,
-        'Vote by Mail Drop Box': vbmLayer
-    }, {
-        collapsed: false
-    }).addTo(map);
-}
+//     L.control.layers(null, {
+//         'Voting Centers': vcLayer,
+//         'Vote by Mail Drop Box': vbmLayer
+//     }, {
+//         collapsed: false
+//     }).addTo(map);
+// }
 
-function createVBMLayer(data) {
-    let icon = new L.icon({
-        iconUrl: './img/noun-polling-station-7187208.svg',
-        iconSize: [24,24],
-        iconAnchor: [12,12],
-        className: 'marker-show'
-    });
+// function createVBMLayer(data) {
+//     let icon = new L.icon({
+//         iconUrl: './img/noun-polling-station-7187208.svg',
+//         iconSize: [24,24],
+//         iconAnchor: [12,12],
+//         className: 'marker-show'
+//     });
 
-    let vbmLayerGroup = L.layerGroup([]);
+//     let vbmLayerGroup = L.layerGroup([]);
 
-    data.forEach(feature => {
-        let popup = document.createElement('div');
-        let title = document.createElement('span');
-        title.className = 'popupDestination';
-        title.innerHTML = feature.name;
+//     data.forEach(feature => {
+//         let popup = document.createElement('div');
+//         let title = document.createElement('span');
+//         title.className = 'popupDestination';
+//         title.innerHTML = feature.name;
 
-        let description = document.createElement('div');
-        description.innerHTML = `
-        Vote by Mail Drop Box<br>
-        Open: ${feature.hours}`;
+//         let description = document.createElement('div');
+//         description.innerHTML = `
+//         Vote by Mail Drop Box<br>
+//         Open: ${feature.hours}`;
 
-        popup.appendChild(title);
-        popup.appendChild(description);
+//         popup.appendChild(title);
+//         popup.appendChild(description);
 
-        marker = L.marker(
-            [feature.latitude, feature.longitude], 
-            {icon: icon})
-        .bindPopup(popup);
+//         marker = L.marker(
+//             [feature.latitude, feature.longitude], 
+//             {icon: icon})
+//         .bindPopup(popup);
 
-        vbmLayerGroup.addLayer(marker);
-    });
+//         vbmLayerGroup.addLayer(marker);
+//     });
 
-    return vbmLayerGroup;
-}
+//     return vbmLayerGroup;
+// }
 
-function createVCLayer(data) {
-    let icon = new L.icon({
-        iconUrl: './img/noun-polling-station-7187208.svg',
-        iconSize: [24,24],
-        iconAnchor: [12,12],
-        className: 'marker-show'
-    });
+// function createVCLayer(data) {
+//     let icon = new L.icon({
+//         iconUrl: './img/noun-polling-station-7187208.svg',
+//         iconSize: [24,24],
+//         iconAnchor: [12,12],
+//         className: 'marker-show'
+//     });
     
-    let vcLayerGroup = L.layerGroup([]);
+//     let vcLayerGroup = L.layerGroup([]);
     
-    data.forEach(feature => {
-        let popup = document.createElement('div');
-        let title = document.createElement('span');
-        title.className = 'popupDestination';
-        title.innerHTML = feature.name;
+//     data.forEach(feature => {
+//         let popup = document.createElement('div');
+//         let title = document.createElement('span');
+//         title.className = 'popupDestination';
+//         title.innerHTML = feature.name;
 
-        let description = document.createElement('div');
-        description.innerHTML = `
-        Voting Center<br>
-        Open: ${feature.hours}`;
+//         let description = document.createElement('div');
+//         description.innerHTML = `
+//         Voting Center<br>
+//         Open: ${feature.hours}`;
 
-        popup.appendChild(title);
-        popup.appendChild(description);
+//         popup.appendChild(title);
+//         popup.appendChild(description);
 
-        marker = L.marker(
-            [feature.latitude, feature.longitude], 
-            {icon: icon})
-        .bindPopup(popup);
+//         marker = L.marker(
+//             [feature.latitude, feature.longitude], 
+//             {icon: icon})
+//         .bindPopup(popup);
 
-        vcLayerGroup.addLayer(marker);
-    });
+//         vcLayerGroup.addLayer(marker);
+//     });
 
-    return vcLayerGroup;
-}
+//     return vcLayerGroup;
+// }
 
 function createLeafletLayers(data) {
     let layerGroups = {};
