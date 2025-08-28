@@ -54,3 +54,27 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 3px 3px 5px 3px rgba(0,0,0,.5);
     z-index: 1000 !important;
 }
+
+#map-info-overlay {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 20px;  /* Adjust as needed */
+    z-index: 1000; /* Ensure it's above the map layers */
+    background-color: rgba(255, 255, 255, 0.8); /* White with 70% opacity */
+    padding: 15px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    #map-info-overlay {
+        bottom: 10px;
+        left: 10px;
+        right: 10px; /* Expands the overlay to the right on smaller screens */
+        max-width: none; /* Removes the max-width to allow it to fill the screen */
+        padding: 10px;
+        font-size: 0.9em; /* Reduces font size for better fit */
+    }
+}
