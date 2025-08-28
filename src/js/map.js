@@ -169,7 +169,12 @@ function createLeafletLayers(data) {
 
             if (layerGroups[feature.properties['category_name']] == null) {
                 let categoryLayer = L.layerGroup([marker]);
-                categoryLayer.addTo(map);
+
+                // only show Food + Drink layer by default:
+                if (feature.properties['category_name'] == 'Food + Drink') {
+                    categoryLayer.addTo(map);
+                }
+
                 layerGroups[feature.properties['category_name']] = categoryLayer;
             } else {
                 layerGroups[feature.properties['category_name']].addLayer(marker);
