@@ -14,16 +14,37 @@ const options = {
     fields: ['place_id', 'geometry', 'name'],
     strictBounds: true
 }
+
 let autocomplete;
+
+let placeInfo = {};
+
+async function init() {
+    (await google.maps.importLibrary('places'));
+    const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({});
+    document.getElementById('google-autocomplete').appendChild(placeAutocomplete);
+
+    placeAutocomplete.addEventListener('gmp-select', async ({
+        placePrediction }) => {
+            const place = placePrediction.toPlace();
+            await place.fetchFields({
+                fields: ['displayName', 'formattedAddress', 'location']
+            });
+
+            document.getElementById('destination').value = place.displayName;
+            placeInfo = place;
+        });
+}
+
 
 // Callback function for Google Map API
 // as defined in src/_includes/default.liquid
-function initMap() {
-    console.log('Gmaps call returned');
-    if (input !== null) {
-        autocomplete = new google.maps.places.Autocomplete(input, options);
-    }
-}
+// function initMap() {
+//     console.log('Gmaps call returned');
+//     if (input !== null) {
+//         autocomplete = new google.maps.places.PlaceAutocompleteElement(input, options);
+//     }
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
     let form = document.getElementById('form')
@@ -31,19 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', handleSubmit);
     }
 
-    document.getElementById('destination').addEventListener('input', handleInputChanged);
+    init();
+    
+    // initMap();
+    // document.getElementById('destination').addEventListener('input', handleInputChanged);
 })
 
-function handleInputChanged(event) {
-    autocomplete.set('place',null);
-}
+// function handleInputChanged(event) {
+//     autocomplete.set('place',null);
+// }
 
 function handleSubmit(event) {
     document.getElementById('confirmation').innerText = '';
     document.getElementById('saving').style.display = 'block';
 
-    let google_place = autocomplete.getPlace();
-    if (google_place == null || !google_place.geometry) {
+    let google_place = placeInfo; //autocomplete.getPlace();
+    if (google_place == null || !google_place.location) {
         document.getElementById('destination').value = '';
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
         document.getElementById('saving').style.display = 'none';
@@ -64,26 +88,27 @@ function encodePlusSign(text) {
 }
 
 function saveToAirtable() {
-    let google_place = autocomplete.getPlace();
+    let google_place = placeInfo;
+
     if (google_place == null) {
         document.getElementById('destination').value = '';
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
-    } else if (!google_place.geometry) {
+    } else if (!google_place.location) {
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
         // document.getElementById('autocomplete').placeholder = 'Where do you want to go?';
     } else {
-        console.log(google_place.name);
-        console.log(google_place.place_id);
-        console.log(google_place.geometry.location.lat() + ', ' + google_place.geometry.location.lng());
+        console.log(google_place.displayName);
+        console.log(google_place.id);
+        console.log(google_place.location.lat() + ', ' + google_place.location.lng());
 
         let shortenedPlaceName = document.getElementById('destination').value.split(',')[0];
 
         let lambda_airtable_url = 'https://6tylo7vfvkr4aj7mk2h6ihom3a0mcttz.lambda-url.us-west-1.on.aws/?';
         
-        lambda_airtable_url += 'google_place=' + google_place.name;
-        lambda_airtable_url += '&google_place_id=' + google_place.place_id;
-        lambda_airtable_url += '&lat=' + google_place.geometry.location.lat();
-        lambda_airtable_url += '&lon=' + google_place.geometry.location.lng();
+        lambda_airtable_url += 'google_place=' + google_place.displayName;
+        lambda_airtable_url += '&google_place_id=' + google_place.id;
+        lambda_airtable_url += '&lat=' + google_place.location.lat();
+        lambda_airtable_url += '&lon=' + google_place.location.lng();
         lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
         lambda_airtable_url += '&first_name=' + document.getElementById('first-name').value;
         lambda_airtable_url += '&description=' + document.getElementById('description').value;
