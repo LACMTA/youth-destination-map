@@ -4,7 +4,7 @@ title: "Youth Destination Map"
 css: 
   - '/css/form.css'
 js-footer:
-  - '/js/site-footer.js'
+  - '/js/form.js'
 ---
 
 <div id="wrapper">
@@ -18,7 +18,10 @@ js-footer:
       <input type="text" name="first-name" id="first-name" required /><br>
       
       <label for="destination">What place would you recommend to a friend?</label><br>
-      <input type="text" name="destination" id="destination" placeholder="" required /><br>
+      <input type="text" name="destination" id="destination" placeholder="" required style="display:none; margin: 0;" />
+
+      <div id="google-autocomplete"></div>
+
 
       <label for="description">Why would they like going there?</label><br>
       <textarea name="description" id="description" required maxlength="300"></textarea><br>
@@ -26,26 +29,15 @@ js-footer:
       <label for="category">What type of place is it?</label><br>
       <select name="category" id="category" required>
         <option value="">Select a category</option>
-        <option value="Beach">Beach</option>
-        <option value="Entertainment">Entertainment</option>
+        <option value="Attractions - Hotels, Resorts, Theme Parks">Attractions - Hotels, Resorts, Theme Parks</option>
+        <option value="Civic - Libraries, Parks, Beaches, Government">Civic - Libraries, Parks, Beaches, Government</option>
+        <option value="Entertainment - Sports, Museums, Theater, Movies">Entertainment - Sports, Museums, Theater, Movies</option>
         <option value="Food + Drink">Food + Drink</option>
-        <option value="Government Building">Government Building</option>
-        <option value="Health + Beauty">Health + Beauty</option>
-        <option value="Hotel">Hotel</option>
-        <option value="Library">Library</option>
-        <option value="Movie Theater">Movie Theater</option>
-        <option value="Museum">Museum</option>
-        <option value="Music Venue">Music Venue</option>
-        <option value="Neighborhood">Neighborhood</option>
-        <option value="Park + Recreation">Park + Recreation</option>
-        <option value="Resort">Resort</option>
+        <option value="Music Shops and Venues">Music Shops and Venues</option>
+        <option value="Neighborhoods, Shopping Districts, Shopping">Neighborhoods, Shopping Districts, Shopping</option>
         <option value="School/College/University">School/College/University</option>
-        <option value="Shopping">Shopping</option>
-        <option value="Sports Arena">Sports Arena</option>
-        <option value="Theater">Theater</option>
-        <option value="Theme Park">Theme Park</option>
-        <option value="Transportation Hub">Transportation Hub</option>
-        <option value="Other">Other</option>
+        <option value="Self-Care - Gyms, Health, Beauty">Self-Care - Gyms, Health, Beauty</option>
+        <option value="Transit-related">Transit-related</option>
       </select><br>
       <button type="submit" id="form-submit" >Submit</button>
     </form>
@@ -56,9 +48,9 @@ js-footer:
       <span class="dot-three"> .</span>
     </div>
 
-    <div>
+    <!-- <div>
       <br><br>
       <a href="{{ '/' | url }}">View the map</a>
-    </div>
+    </div> -->
   </div>
 </div>
