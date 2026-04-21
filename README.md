@@ -1,5 +1,9 @@
 # youth-destination-map
 
+## Updates
+
+4/20/26 - Updated to the new Google Places API.
+
 ## Destinations
 
 Attendees of the 2023 Youth Summit, the members of the 2024 Youth Council, and peers of the 2024 Youth council were asked to contribute destinations for this guide: places they like to visit, hidden gems that other teens should know about, etc.
