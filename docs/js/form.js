@@ -31,7 +31,6 @@ async function init() {
                 fields: ['displayName', 'formattedAddress', 'location']
             });
 
-            document.getElementById('destination').value = place.displayName;
             placeInfo = place;
         });
 }
@@ -68,13 +67,11 @@ function handleSubmit(event) {
 
     let google_place = placeInfo; //autocomplete.getPlace();
     if (google_place == null || !google_place.location) {
-        document.getElementById('destination').value = '';
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
         document.getElementById('saving').style.display = 'none';
         event.preventDefault();
     } else {
         saveToAirtable();
-        document.getElementById('destination').value = '';
         document.getElementById('first-name').value = '';
         document.getElementById('description').value = '';
         document.getElementById('category').value = '';
@@ -91,7 +88,6 @@ function saveToAirtable() {
     let google_place = placeInfo;
 
     if (google_place == null) {
-        document.getElementById('destination').value = '';
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
     } else if (!google_place.location) {
         document.getElementById('confirmation').innerHTML = '<br><br>Please select a destination from the dropdown';
@@ -101,7 +97,6 @@ function saveToAirtable() {
         console.log(google_place.id);
         console.log(google_place.location.lat() + ', ' + google_place.location.lng());
 
-        let shortenedPlaceName = document.getElementById('destination').value.split(',')[0];
 
         let lambda_airtable_url = 'https://6tylo7vfvkr4aj7mk2h6ihom3a0mcttz.lambda-url.us-west-1.on.aws/?';
         
@@ -109,7 +104,7 @@ function saveToAirtable() {
         lambda_airtable_url += '&google_place_id=' + google_place.id;
         lambda_airtable_url += '&lat=' + google_place.location.lat();
         lambda_airtable_url += '&lon=' + google_place.location.lng();
-        lambda_airtable_url += '&user_entered_place=' + shortenedPlaceName;
+        lambda_airtable_url += '&user_entered_place=' + google_place.displayName;
         lambda_airtable_url += '&first_name=' + document.getElementById('first-name').value;
         lambda_airtable_url += '&description=' + document.getElementById('description').value;
         lambda_airtable_url += '&category=' + encodePlusSign(document.getElementById('category').value);
